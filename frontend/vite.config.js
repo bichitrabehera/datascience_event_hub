@@ -3,8 +3,13 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from "@tailwindcss/vite";
 
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
-  base: "/", // important for correct paths in build
+  plugins: [react(),tailwindcss()],
+  build: {
+    outDir: "build", // Ensure Vercel/Render sees this folder
+  },
+  server: {
+    port: 5173,
+  },
+  base: "./", // important for relative paths
 });
