@@ -24,7 +24,7 @@ const Stats = () => {
             <p className="text-4xl font-bold text-purple-700 mb-2">
               {stat.value}
             </p>
-            <p className="text-xl text-gray-800">{stat.label}</p>
+            <p className="text text-gray-800">{stat.label}</p>
           </div>
         ))}
       </div>
