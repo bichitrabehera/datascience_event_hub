@@ -38,7 +38,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <main className="p-6 min-h-screen">
+    <main className="p-6 min-h-screen pb-50">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-3xl font-bold mb-6">Admin Dashboard</h1>
 
@@ -51,7 +51,10 @@ export default function AdminDashboard() {
 
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {events.map((e) => (
-            <div key={e.id} className="border p-4 rounded shadow hover:shadow-lg">
+            <div
+              key={e.id}
+              className="border p-4 rounded shadow hover:shadow-lg"
+            >
               <h2 className="text-xl font-semibold">{e.title}</h2>
               <p>{e.description}</p>
               <p>

@@ -14,7 +14,7 @@ const AdminHeader = () => {
             to="/dashboard"
             className="text-2xl text-[#6f00ff] font-[sketch] transition"
           >
-            Data Verse Admin
+            Admin
           </Link>
         </h1>
 

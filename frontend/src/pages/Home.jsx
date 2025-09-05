@@ -16,7 +16,7 @@ const Home = () => {
       <Events />
       <About />
       <Stats/>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 };

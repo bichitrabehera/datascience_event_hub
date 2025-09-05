@@ -7,7 +7,7 @@ const About = () => {
         About <br /> Data Verse
       </h1>
 
-      <div className="bg-white w-full max-w-4xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-4">
+      <div className="bg-white w-full max-w-4xl border-2 border-black shadow-[12px_12px_0_#000] p-8 space-y-4">
         <p className="text text-gray-800 leading-relaxed">
           Welcome to <span className="font-bold">Data Verse</span> — your one-stop
           destination for discovering, creating, and experiencing amazing

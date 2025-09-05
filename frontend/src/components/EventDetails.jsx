@@ -30,9 +30,9 @@ export default function EventDetails() {
     return <p className="text-gray-500 text-center mt-10">Loading...</p>;
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-50">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gray-50">
       {/* Title */}
-      <h1 className="text-5xl font-[sketch] text-blue-700 mb-10 text-center">
+      <h1 className="text-3xl md:text-5xl font-[sketch] text-blue-700 m-10 text-center">
         Event Details
       </h1>
 

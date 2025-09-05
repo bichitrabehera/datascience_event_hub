@@ -73,7 +73,7 @@ export default function EventRegister() {
   return (
     <main className="min-h-screen flex flex-col justify-center items-center px-6 py-16">
       {/* Title */}
-      <h1 className="text-5xl font-[font2] text-blue-700 mb-10 text-center">
+      <h1 className="text-3xl font-[font2] text-blue-700 m-10 text-center">
         Register for {event.title}
       </h1>
 

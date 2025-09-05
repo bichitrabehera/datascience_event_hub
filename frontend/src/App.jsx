@@ -13,6 +13,7 @@ import Login from "./components/Login.jsx";
 import Completed from "./components/Completed.jsx";
 import Contact from "./pages/Contact.jsx";
 import Admin from "./pages/Admin.jsx";
+import Footer from "./components/Footer.jsx";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
@@ -25,6 +26,7 @@ const PublicLayout = ({ children }) => (
   <>
     <NavBar />
     {children}
+    <Footer/>
   </>
 );
 
@@ -85,9 +87,9 @@ const App = () => {
         <Route
           path="/login"
           element={
-            <ProtectedRoute>
+            // <ProtectedRoute>
                 <Login />
-            </ProtectedRoute>
+            // </ProtectedRoute>
           }
         />
         <Route
