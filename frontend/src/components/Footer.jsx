@@ -27,19 +27,7 @@ const Footer = () => {
                 Home
               </Link>
             </li>
-            <li>
-              <Link
-                to="#events"
-                className="hover:underline hover:text-blue-700"
-              >
-                Events
-              </Link>
-            </li>
-            <li>
-              <Link to="#about" className="hover:underline hover:text-blue-700">
-                About
-              </Link>
-            </li>
+           
             <li>
               <Link
                 to="/contact"

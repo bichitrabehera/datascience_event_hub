@@ -2,20 +2,19 @@
 
 const HeroSection = () => {
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-[90vh] flex items-center justify-center mt-10 border-b">
       {/* Overlay */}
       <div className="text-center px-6">
         <h1 className="text-5xl md:text-8xl font-[sketch] text-blue-700">
-          Data Science
+          Department of
         </h1>
         <h1 className="text-5xl md:text-8xl font-[sketch] text-blue-700">
-          Department
+          Data Science
         </h1>
-        <p className="mt-6 text-lg md:text-2xl text-gray-900 max-w-2xl mx-auto font-[sketch]">
-          Explore upcoming workshops, hackathons, and seminars organized by the
-          Department of Data Science. Stay ahead with innovation and knowledge.
+        <p className="mt-6 text-3xl md:text-5xl text-gray-900 max-w-2xl mx-auto font-[font2]">
+          2k25
         </p>
-        <p className="mt-6 text-2xl md:text-3xl text-black max-w-2xl mx-auto font-[sketch]">
+        <p className="mt-6 text-2xl md:text-3xl text-black max-w-2xl mx-auto font-[font2]">
           AMC Engineering College , Bangalore
         </p>
         <div className="mt-8 flex gap-2 justify-center">

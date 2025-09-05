@@ -10,9 +10,9 @@ const Stats = () => {
   ];
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-50">
+    <main className=" border-b flex flex-col items-center justify-center px-6 py-20 bg-gray-50">
       <h1 className="text-5xl font-[font2] text-blue-700 mb-12 text-center">
-        Our Stats
+        Stats
       </h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full">

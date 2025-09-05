@@ -38,7 +38,7 @@ export default function Events() {
 
   function EventGrid({ data }) {
     return (
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 ">
         {data.map((event) => (
           <div
             key={event.id}
@@ -88,7 +88,7 @@ export default function Events() {
   }
 
   return (
-    <main className="min-h-screen py-12 px-6">
+    <main className="min-h-screen py-20 px-6 border-b">
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Upcoming Events */}
         <section id="events">
