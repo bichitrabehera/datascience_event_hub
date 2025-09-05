@@ -6,7 +6,7 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="bg-[#fcfcfc] fixed  top-0 left-0 right-0 text-black px-6 py-2 z-50">
+    <header className=" fixed top-0 left-0 right-0 text-black border-b px-6 py-3 z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <h1 className="">
@@ -14,7 +14,7 @@ export default function Header() {
             to="/"
             className="text-3xl text-[#6f00ff] transition font-[sketch]"
           >
-            deh
+            DATA VERSE
           </Link>
         </h1>
 

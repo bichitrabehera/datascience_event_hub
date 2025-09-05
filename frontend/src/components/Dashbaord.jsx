@@ -32,10 +32,11 @@ export default function Dashboard() {
   }, []);
 
   // Save (create or update) event
+  // Save (create or update) event
   async function handleSaveEvent(e) {
     e.preventDefault();
+
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
 
     const url = editingEvent
       ? API.ADMIN_EVENT(editingEvent.id)
@@ -46,11 +47,11 @@ export default function Dashboard() {
       const res = await fetch(url, {
         method,
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${token}`, // do NOT set Content-Type for FormData
         },
-        body: JSON.stringify(data),
+        body: formData,
       });
+
       if (res.ok) {
         alert("Event saved successfully!");
         setShowEventForm(false);
@@ -224,6 +225,7 @@ export default function Dashboard() {
       </div>
 
       {/* Event Form Modal */}
+      {/* Event Form Modal */}
       {showEventForm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-white p-6 rounded-lg w-full max-w-lg shadow-lg relative">
@@ -236,6 +238,7 @@ export default function Dashboard() {
             <h2 className="text-2xl font-bold mb-4">
               {editingEvent ? "Edit Event" : "Create Event"}
             </h2>
+
             <form onSubmit={handleSaveEvent} className="space-y-4">
               <input
                 name="title"
@@ -278,6 +281,25 @@ export default function Dashboard() {
                 required
                 className="w-full border rounded p-2"
               />
+
+              {/* File upload */}
+              <div>
+                <label className="block font-semibold mb-1">Event Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  accept="image/*"
+                  className="w-full border rounded p-2"
+                />
+                {editingEvent?.image_url && (
+                  <img
+                    src={editingEvent.image_url}
+                    alt="Current event"
+                    className="mt-2 h-32 object-cover rounded"
+                  />
+                )}
+              </div>
+
               <button
                 type="submit"
                 className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"

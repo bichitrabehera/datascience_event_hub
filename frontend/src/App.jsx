@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import NavBar from "./components/Header.jsx";
-import Footer from "./components/Footer.jsx";
 import Home from "./pages/Home.jsx";
 import Events from "./components/Events.jsx";
 import EventDetails from "./components/EventDetails.jsx";
@@ -33,7 +32,6 @@ const App = () => {
           element={isLoggedIn ? <Dashboard /> : <Login onLogin={handleLogin} />}
         />
       </Routes>
-      <Footer />
     </div>
   );
 };

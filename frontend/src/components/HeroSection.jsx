@@ -9,7 +9,7 @@ const HeroSection = () => {
           Data Science
         </h1>
         <h1 className="text-5xl md:text-8xl font-[sketch] text-blue-700 drop-shadow-lg">
-          Event Hub
+          Department
         </h1>
         <p className="mt-6 text-lg md:text-2xl text-gray-900 max-w-2xl mx-auto font-[sketch]">
           Explore upcoming workshops, hackathons, and seminars organized by the

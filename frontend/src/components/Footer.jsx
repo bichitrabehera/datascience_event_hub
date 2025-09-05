@@ -11,7 +11,7 @@ const Footer = () => {
             About Us
           </h3>
           <p className="text-sm text-gray-800 leading-relaxed">
-            EventHub is a events platform where users can explore, register, and
+            Data Verse is a events platform where users can explore, register, and
             manage events. Built for learning, creativity, and collaboration.
           </p>
         </div>

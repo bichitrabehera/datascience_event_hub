@@ -5,7 +5,14 @@ import { API } from "../constants/api";
 export default function EventRegister() {
   const { id } = useParams();
   const [event, setEvent] = useState(null);
-  const [formData, setFormData] = useState({ name: "", email: "" });
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    year: "",
+    department: "",
+    usn: "",
+    phone_number: "",
+  });
   const [customFields, setCustomFields] = useState([]);
 
   useEffect(() => {
@@ -41,6 +48,10 @@ export default function EventRegister() {
         body: JSON.stringify({
           name: formData.name,
           email: formData.email,
+          year: formData.year,
+          department: formData.department,
+          usn: formData.usn,
+          phone_number: formData.phone_number,
           form_data: extraData,
         }),
       });
@@ -58,78 +69,164 @@ export default function EventRegister() {
     return <p className="text-gray-500 text-center mt-10">Loading...</p>;
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-50">
+    <main className="min-h-screen flex flex-col justify-center items-center px-6 py-16">
       {/* Title */}
-      <h1 className="text-4xl font-[sketch] text-blue-700 mb-10 text-center">
+      <h1 className="text-5xl font-[font2] text-blue-700 mb-10 text-center">
         Register for {event.title}
       </h1>
 
       {/* Card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-4 transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[17px_17px_0_#000]"
+        className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-6"
       >
-        <input
-          type="text"
-          placeholder="Your Name"
-          value={formData.name}
-          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-          required
-          className="w-full border-2 border-black px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="email"
-          placeholder="Your Email"
-          value={formData.email}
-          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-          required
-          className="w-full border-2 border-black px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-
-        {customFields.map((field) => (
-          <div key={field.label} className="flex flex-col">
-            <label className="mb-1 font-semibold text-gray-900">
-              {field.label}
-            </label>
-            {field.type === "textarea" ? (
-              <textarea
-                required={field.required}
-                onChange={(e) =>
-                  setFormData({ ...formData, [field.label]: e.target.value })
-                }
-                className="w-full border-2 border-black px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            ) : field.type === "select" ? (
-              <select
-                required={field.required}
-                onChange={(e) =>
-                  setFormData({ ...formData, [field.label]: e.target.value })
-                }
-                className="w-full border-2 border-black px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="">Select...</option>
-                {field.options.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            ) : (
-              <input
-                type={field.type}
-                required={field.required}
-                onChange={(e) =>
-                  setFormData({ ...formData, [field.label]: e.target.value })
-                }
-                className="w-full border-2 border-black px-3 py-2 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            )}
+        {/* Grid for basic info */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Name */}
+          <div>
+            <label className="block mb-1 font-semibold">Full Name</label>
+            <input
+              type="text"
+              value={formData.name}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
+              required
+              className="w-full border-2 border-black px-3 py-2 rounded-md"
+            />
           </div>
-        ))}
 
+          {/* Email */}
+          <div>
+            <label className="block mb-1 font-semibold">Email</label>
+            <input
+              type="email"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData({ ...formData, email: e.target.value })
+              }
+              required
+              className="w-full border-2 border-black px-3 py-2 rounded-md"
+            />
+          </div>
+
+          {/* Year */}
+          <div>
+            <label className="block mb-1 font-semibold">Year</label>
+            <input
+              type="text"
+              placeholder="e.g., 2nd Year"
+              value={formData.year}
+              onChange={(e) =>
+                setFormData({ ...formData, year: e.target.value })
+              }
+              required
+              className="w-full border-2 border-black px-3 py-2 rounded-md"
+            />
+          </div>
+
+          {/* Department */}
+          <div>
+            <label className="block mb-1 font-semibold">Department</label>
+            <input
+              type="text"
+              placeholder="e.g., CSE"
+              value={formData.department}
+              onChange={(e) =>
+                setFormData({ ...formData, department: e.target.value })
+              }
+              required
+              className="w-full border-2 border-black px-3 py-2 rounded-md"
+            />
+          </div>
+
+          {/* USN */}
+          <div>
+            <label className="block mb-1 font-semibold">USN</label>
+            <input
+              type="text"
+              value={formData.usn}
+              onChange={(e) =>
+                setFormData({ ...formData, usn: e.target.value })
+              }
+              required
+              className="w-full border-2 border-black px-3 py-2 rounded-md"
+            />
+          </div>
+
+          {/* Phone Number */}
+          <div>
+            <label className="block mb-1 font-semibold">Phone Number</label>
+            <input
+              type="tel"
+              value={formData.phone_number}
+              onChange={(e) =>
+                setFormData({ ...formData, phone_number: e.target.value })
+              }
+              required
+              className="w-full border-2 border-black px-3 py-2 rounded-md"
+            />
+          </div>
+        </div>
+
+        {/* Render custom event-specific fields */}
+        {customFields.length > 0 && (
+          <div className="space-y-4">
+            <h2 className="text-lg font-semibold">Additional Information</h2>
+            {customFields.map((field) => (
+              <div key={field.label} className="flex flex-col">
+                <label className="mb-1 font-semibold">{field.label}</label>
+                {field.type === "textarea" ? (
+                  <textarea
+                    required={field.required}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [field.label]: e.target.value,
+                      })
+                    }
+                    className="w-full border-2 border-black px-3 py-2 rounded-md"
+                  />
+                ) : field.type === "select" ? (
+                  <select
+                    required={field.required}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [field.label]: e.target.value,
+                      })
+                    }
+                    className="w-full border-2 border-black px-3 py-2 rounded-md"
+                  >
+                    <option value="">Select...</option>
+                    {field.options.map((opt) => (
+                      <option key={opt} value={opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                ) : (
+                  <input
+                    type={field.type}
+                    required={field.required}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        [field.label]: e.target.value,
+                      })
+                    }
+                    className="w-full border-2 border-black px-3 py-2 rounded-md"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white font-bold py-3 border-2 border-black shadow-[4px_4px_0_#000] hover:translate-x-[-2px] hover:translate-y-[-2px] hover:shadow-[6px_6px_0_#000] transition"
+          className="w-full bg-green-600 text-white font-bold py-3 rounded-md border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
         >
           Submit Registration
         </button>

@@ -25,6 +25,11 @@ body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: font2;
+  src: url("./assets/fonts/8076f151dc35e9db-s.p.otf");
+}
+
 .footer {
   /* background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png"); */
   background-color: rgb(15, 15, 15);
