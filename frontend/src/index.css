@@ -36,7 +36,7 @@ html{
 }
 
 .footer {
-  /* background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png"); */
-  background-color: rgb(15, 15, 15);
+  background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png");
+  background-color: rgb(0, 0, 0);
   object-fit: contain;
 }
