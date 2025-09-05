@@ -3,25 +3,25 @@ import React from "react";
 const Contact = () => {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 b">
-      <h1 className="text-5xl font-[sketch] text-blue-700 mb-10 text-center">
+      <h1 className="text-4xl font-[sketch] text-blue-700 m-10 text-center">
         Contact Us
       </h1>
 
-      <div className="bg-white w-full max-w-4xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-4">
-        <p className="text-gray-800 text-lg leading-relaxed">
+      <div className="bg-white w-full max-w-4xl border-4 border-black shadow-[12px_12px_0_#000] p-4 space-y-4">
+        <p className="text-gray-800 text leading-relaxed">
           Have questions or need assistance? We’re here to help!
         </p>
 
-        <p className="text-gray-800 text-lg leading-relaxed">
-          <span className="font-bold">Email:</span> 1am23cd020@amceducation.in ,
+        <p className="text-gray-800 text leading-relaxed">
+          <span className="font-bold">Email:</span> 1am23cd020@amceducation.in,
           1am23cd053@amceducation.in
         </p>
 
-        <p className="text-gray-800 text-lg leading-relaxed">
+        <p className="text-gray-800 text leading-relaxed">
           <span className="font-bold">Phone:</span> +91 99999 99999
         </p>
 
-        <p className="text-gray-800 text-lg leading-relaxed">
+        <p className="text-gray-800 text leading-relaxed">
           <span className="font-bold">Address:</span> AMC Engineering College ,
           Bangalore , Karnataka
         </p>
