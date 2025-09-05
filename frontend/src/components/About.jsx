@@ -2,9 +2,9 @@ import React from "react";
 
 const About = () => {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12">
+    <main id="about" className="min-h-screen flex flex-col items-center justify-center px-6 py-12">
       <h1 className="text-5xl font-[sketch] text-blue-700 mb-10 text-center">
-        About EventHub
+        About Data Verse
       </h1>
 
       <div className="bg-white w-full max-w-4xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-4">

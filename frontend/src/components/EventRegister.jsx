@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { API } from "../constants/api";
+import { useNavigate } from "react-router-dom";
 
 export default function EventRegister() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [event, setEvent] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
@@ -56,7 +58,7 @@ export default function EventRegister() {
         }),
       });
       if (res.ok) {
-        alert("Registration successful!");
+        navigate("/completed");
       } else {
         alert("Registration failed. Try again.");
       }

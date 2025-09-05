@@ -29,14 +29,14 @@ const Footer = () => {
             </li>
             <li>
               <Link
-                to="/events"
+                to="#events"
                 className="hover:underline hover:text-blue-700"
               >
                 Events
               </Link>
             </li>
             <li>
-              <Link to="/about" className="hover:underline hover:text-blue-700">
+              <Link to="#about" className="hover:underline hover:text-blue-700">
                 About
               </Link>
             </li>
@@ -80,10 +80,10 @@ const Footer = () => {
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t-4 border-black bg-white py-6 text-center shadow-[6px_6px_0_#000]">
+      <div className="border-t-4 border-black bg-white py-10 text-center shadow-[6px_6px_0_#000]">
         <p className="text-sm text-gray-800">
-          © {new Date().getFullYear()} Made with ❤️ by{" "}
-          <span className="font-bold">Department of Data Science</span>
+          © {new Date().getFullYear()} Made with ❤️ for{" "}
+          <span className="font-bold">Engineers</span>
         </p>
       </div>
     </footer>

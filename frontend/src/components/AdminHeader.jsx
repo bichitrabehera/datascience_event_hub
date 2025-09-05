@@ -2,38 +2,32 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 
-export default function Header() {
+const AdminHeader = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className=" fixed top-0 left-0 right-0 text-black border-b px-6 py-3 bg-[#FFFFFF]">
+    <header className="fixed top-0 left-0 right-0 text-black border-b px-6 py-3 bg-white z-50">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <h1 className="">
+        <h1>
           <Link
-            to="/"
-            className="text-2xl text-[#6f00ff] transition font-[sketch]"
+            to="/dashboard"
+            className="text-2xl text-[#6f00ff] font-[sketch] transition"
           >
-            Data Verse
+            Data Verse Admin
           </Link>
         </h1>
 
         {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6 text-lg">
           <Link
-            to="/"
+            to="/admin/events/new"
             className="hover:text-blue-400 transition"
             onClick={() => setIsOpen(false)}
           >
-            Home
+            + Add Event
           </Link>
-          <Link
-            to="/contact"
-            className="hover:text-blue-400 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Contact
-          </Link>
+
         </nav>
 
         {/* Mobile Hamburger */}
@@ -48,7 +42,6 @@ export default function Header() {
       {/* Fullscreen Mobile Menu */}
       {isOpen && (
         <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center space-y-8 text-black text-2xl z-50">
-          {/* Close Button inside overlay */}
           <button
             className="absolute top-6 right-6 p-2 hover:bg-gray-700 rounded"
             onClick={() => setIsOpen(false)}
@@ -57,21 +50,17 @@ export default function Header() {
           </button>
 
           <Link
-            to="/"
+            to="/admin/events/new"
             className="hover:text-blue-400 transition"
             onClick={() => setIsOpen(false)}
           >
-            Home
+            + Add Event
           </Link>
-          <Link
-            to="/contact"
-            className="hover:text-blue-400 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Contact
-          </Link>
+
         </div>
       )}
     </header>
   );
-}
+};
+
+export default AdminHeader;

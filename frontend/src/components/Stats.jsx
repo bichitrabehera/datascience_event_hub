@@ -1,0 +1,35 @@
+import React from "react";
+
+const Stats = () => {
+  const stats = [
+    { label: "Members", value: "300+" },
+    { label: "Events Organized", value: "30+" },
+    { label: "Workshops", value: "15+" },
+    { label: "Tech Events / Seminars", value: "50+" },
+    { label: "Hackathons & Techfest", value: "2 Hackathons, 1 Techfest" },
+  ];
+
+  return (
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 bg-gray-50">
+      <h1 className="text-5xl font-[font2] text-blue-700 mb-12 text-center">
+        Our Stats
+      </h1>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full">
+        {stats.map((stat, index) => (
+          <div
+            key={index}
+            className="bg-white border-4 border-black shadow-[12px_12px_0_#000] p-8 text-center hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[17px_17px_0_#000] transition-transform"
+          >
+            <p className="text-4xl font-bold text-purple-700 mb-2">
+              {stat.value}
+            </p>
+            <p className="text-xl text-gray-800">{stat.label}</p>
+          </div>
+        ))}
+      </div>
+    </main>
+  );
+};
+
+export default Stats;

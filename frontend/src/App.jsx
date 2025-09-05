@@ -1,36 +1,138 @@
-import React, { useState } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
-import NavBar from "./components/Header.jsx";
+import EventForm from "./components/EventForm.jsx";
+import EventRegistrations from "./components/Registrations.jsx";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
+
+// Components
+import NavBar from "./components/Header.jsx"; // public header
+import AdminHeader from "./components/AdminHeader.jsx"; // admin header
 import Home from "./pages/Home.jsx";
-import Events from "./components/Events.jsx";
 import EventDetails from "./components/EventDetails.jsx";
-import Dashboard from "./components/Dashbaord.jsx";
-import Login from "./components/Login.jsx";
 import EventRegister from "./components/EventRegister.jsx";
+import Login from "./components/Login.jsx";
+import Completed from "./components/Completed.jsx";
+import Contact from "./pages/Contact.jsx";
+import Admin from "./pages/Admin.jsx";
+
+// ProtectedRoute component
+const ProtectedRoute = ({ children }) => {
+  const token = localStorage.getItem("token");
+  return token ? children : <Navigate to="/login" replace />;
+};
+
+// Layouts
+const PublicLayout = ({ children }) => (
+  <>
+    <NavBar />
+    {children}
+  </>
+);
+
+const AdminLayout = ({ children }) => (
+  <>
+    <AdminHeader />
+    {children}
+  </>
+);
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const navigate = useNavigate();
-
-  const handleLogin = () => {
-    setIsLoggedIn(true);
-    navigate("/dashboard"); // Redirect to dashboard after login
-  };
-
   return (
-    <div>
-      <NavBar />
+    <div className="min-h-screen bg-gray-50">
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/events" element={<Events />} />
-        <Route path="/events/:id" element={<EventDetails />} />
-        <Route path="/events/:id/register" element={<EventRegister />} />
+        {/* Public routes */}
+        <Route
+          path="/"
+          element={
+            <PublicLayout>
+              <Home />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/events/:id"
+          element={
+            <PublicLayout>
+              <EventDetails />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/events/:id/register"
+          element={
+            <PublicLayout>
+              <EventRegister />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/completed"
+          element={
+            <PublicLayout>
+              <Completed />
+            </PublicLayout>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <PublicLayout>
+              <Contact />
+            </PublicLayout>
+          }
+        />
 
-        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+        {/* Admin / Dashboard protected routes */}
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute>
+                <Login />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/dashboard"
-          element={isLoggedIn ? <Dashboard /> : <Login onLogin={handleLogin} />}
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <Admin />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
         />
+        <Route
+          path="/admin/events/new"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <EventForm />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/events/:id/edit"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <EventForm />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/events/:id/registrations"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <EventRegistrations />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Catch-all */}
+        <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </div>
   );

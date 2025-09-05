@@ -38,6 +38,15 @@ export default function EventDetails() {
 
       {/* Event Card */}
       <div className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-4 transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[17px_17px_0_#000]">
+        {/* Event Image */}
+        {event.image_url && (
+          <img
+            src={event.image_url}
+            alt={event.title}
+            className="w-full h-64 object-cover rounded-lg mb-4 border-2 border-black"
+          />
+        )}
+
         <h2 className="text-3xl font-bold text-gray-900">{event.title}</h2>
         <p className="text-gray-700">{event.description}</p>
 
