@@ -1,3 +1,4 @@
+import { Link } from "lucide-react";
 import React from "react";
 
 const Completed = () => {
@@ -19,7 +20,7 @@ const Completed = () => {
         </p>
 
         <button className="inline-block px-4 py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition">
-          <a href="/"> Go to Events</a>
+          <Link to="/">Go to Events</Link>
         </button>
       </div>
     </main>

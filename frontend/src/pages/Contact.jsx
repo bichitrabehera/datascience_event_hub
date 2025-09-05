@@ -13,20 +13,22 @@ const Contact = () => {
         </p>
 
         <p className="text-gray-800 text-lg leading-relaxed">
-          <span className="font-bold">Email:</span> support@eventhub.com
+          <span className="font-bold">Email:</span> 1am23cd020@amceducation.in ,
+          1am23cd053@amceducation.in
         </p>
 
         <p className="text-gray-800 text-lg leading-relaxed">
-          <span className="font-bold">Phone:</span> +1 (555) 123-4567
+          <span className="font-bold">Phone:</span> +91 99999 99999
         </p>
 
         <p className="text-gray-800 text-lg leading-relaxed">
-          <span className="font-bold">Address:</span> 123 Event Street, Data
-          City, USA
+          <span className="font-bold">Address:</span> AMC Engineering College ,
+          Bangalore , Karnataka
         </p>
 
         <button className="inline-block px-4 py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition">
           <a href="/">Go Back To Home</a>
+          {/* <Link to="/">Go Back To Home</Link> */}
         </button>
       </div>
     </main>
