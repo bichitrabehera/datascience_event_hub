@@ -14,6 +14,8 @@ import Completed from "./components/Completed.jsx";
 import Contact from "./pages/Contact.jsx";
 import Admin from "./pages/Admin.jsx";
 import Footer from "./components/Footer.jsx";
+import { Scroll } from "lucide-react";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
@@ -41,6 +43,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      <ScrollToTop />
       <Routes>
         {/* Public routes */}
         <Route
