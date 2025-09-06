@@ -5,11 +5,11 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss()],
   build: {
-    outDir: "build", // this folder will be deployed
-    assetsDir: "assets", // default, ensure it matches
+    outDir: "build", // Vercel will deploy this
+    assetsDir: "assets", // keep this as is
   },
   server: {
     port: 5173,
   },
-  base: "./", // important for relative paths
+  base: "/", // ✅ use absolute paths for assets in production
 });
