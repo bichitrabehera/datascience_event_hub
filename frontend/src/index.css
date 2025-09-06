@@ -1,17 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import "tailwindcss";
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Space Grotesk", sans-serif;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* background-color: #f9f9f9; */
-  color: #333;
-  background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png");
   scroll-behavior: smooth;
 }
 
-html{
+html {
   scroll-behavior: smooth;
   font-size: 16px;
 }
@@ -20,9 +18,9 @@ html{
   background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png");
 }
 
-::-webkit-scrollbar {
+/* ::-webkit-scrollbar {
   display: none;
-}
+} */
 
 @font-face {
   font-family: sketch;
@@ -31,12 +29,15 @@ html{
 }
 
 @font-face {
+  font-family: font1;
+  src: url("./assets/fonts/98b8b276fece238b-s.p.ttf");
+}
+
+@font-face {
   font-family: font2;
   src: url("./assets/fonts/8076f151dc35e9db-s.p.otf");
 }
 
-.footer {
+footer {
   background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png");
-  background-color: rgb(0, 0, 0);
-  object-fit: contain;
 }

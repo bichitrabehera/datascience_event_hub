@@ -6,30 +6,30 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className=" fixed top-0 left-0 right-0 text-black border-b px-6 py-2 md:py-4 bg-[#FFFFFF]">
+    <header className=" fixed top-0 left-0 right-0 text-black px-6 py-2 md:py-4 bg-[#FFFFFF]">
       <div className="max-w-6xl mx-auto flex justify-between items-center">
         {/* Logo */}
         <h1 className="">
           <Link
             to="/"
-            className="text-2xl text-[#6f00ff] transition font-[sketch]"
+            className="text-3xl text-[#6f00ff] transition font-[sketch]"
           >
             Data Verse
           </Link>
         </h1>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-6 text-lg">
+        <nav className="hidden md:flex space-x-10 text-[1vw]">
           <Link
             to="/"
-            className="hover:text-blue-400 transition"
+            className="hover:text-blue-400 transition hover:underline"
             onClick={() => setIsOpen(false)}
           >
             Home
           </Link>
           <Link
             to="/contact"
-            className="hover:text-blue-400 transition"
+            className="hover:text-blue-400 transition hover:underline"
             onClick={() => setIsOpen(false)}
           >
             Contact

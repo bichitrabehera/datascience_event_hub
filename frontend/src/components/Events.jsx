@@ -42,7 +42,7 @@ export default function Events() {
         {data.map((event) => (
           <div
             key={event.id}
-            className="bg-white border-4 border-black shadow-[12px_12px_0_#000]"
+            className="bg-white border-2 border-black shadow-[12px_12px_0_#000]"
           >
             <img
               src={event.image_url}
@@ -88,11 +88,11 @@ export default function Events() {
   }
 
   return (
-    <main className="min-h-screen py-20 px-6 border-b">
+    <main className="min-h-screen py-20 px-6 border-b hero">
       <div className="max-w-6xl mx-auto space-y-16">
         {/* Upcoming Events */}
         <section id="events">
-          <h2 className="text-4xl font-[font2] text-blue-700 text-center mb-20">
+          <h2 className="text-5xl md:text-7xl  font-[font2] text-blue-700 text-center mb-20">
             Upcoming Events
           </h2>
           {upcoming.length > 0 ? (
@@ -105,7 +105,7 @@ export default function Events() {
         </section>
 
         <section>
-          <h2 className="text-4xl font-[font2] text-blue-700 text-center mb-20">
+          <h2 className="text-5xl md:text-7xl font-[font2] text-blue-700 text-center mb-20">
             Ongoing Events
           </h2>
           {ongoing.length > 0 ? (
@@ -122,7 +122,7 @@ export default function Events() {
 
         {/* Past Events */}
         <section>
-          <h2 className="text-4xl font-[font2] text-blue-700 text-center mb-20">
+          <h2 className="text-5xl md:text-7xl font-[font2] text-blue-700 text-center mb-20">
             Past Events
           </h2>
           {past.length > 0 ? (

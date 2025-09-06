@@ -71,9 +71,9 @@ export default function EventRegister() {
     return <p className="text-gray-500 text-center mt-10">Loading...</p>;
 
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center px-6 py-16">
+    <main className="min-h-screen flex flex-col justify-center items-center px-6 py-16 hero">
       {/* Title */}
-      <h1 className="text-3xl font-[font2] text-blue-700 m-10 text-center">
+      <h1 className="text-3xl md:text-5xl font-[font2] text-blue-700 m-10 text-center">
         Register for {event.title}
       </h1>
 
@@ -230,7 +230,7 @@ export default function EventRegister() {
           type="submit"
           className="w-full bg-green-600 text-white font-bold py-3 rounded-md border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
         >
-          Submit Registration
+          Register
         </button>
       </form>
     </main>

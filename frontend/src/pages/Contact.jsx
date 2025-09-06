@@ -2,8 +2,8 @@ import React from "react";
 
 const Contact = () => {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 b">
-      <h1 className="text-4xl font-[sketch] text-blue-700 m-10 text-center">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 hero">
+      <h1 className="text-4xl md:text-[5vw] font-[sketch] text-blue-700 m-10 text-center">
         Contact Us
       </h1>
 

@@ -16,6 +16,7 @@ import Admin from "./pages/Admin.jsx";
 import Footer from "./components/Footer.jsx";
 import { Scroll } from "lucide-react";
 import ScrollToTop from "./components/ScrollToTop.jsx";
+import ErrorPage from "./components/ErrorPage.jsx";
 
 // ProtectedRoute component
 const ProtectedRoute = ({ children }) => {
@@ -138,7 +139,7 @@ const App = () => {
         />
 
         {/* Catch-all */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<ErrorPage/>} />
       </Routes>
     </div>
   );

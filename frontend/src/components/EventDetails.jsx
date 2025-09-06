@@ -30,14 +30,14 @@ export default function EventDetails() {
     return <p className="text-gray-500 text-center mt-10">Loading...</p>;
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 bg-gray-50">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 hero">
       {/* Title */}
       <h1 className="text-3xl md:text-5xl font-[sketch] text-blue-700 m-10 text-center">
         Event Details
       </h1>
 
       {/* Event Card */}
-      <div className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-4 transition-transform duration-300 hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[17px_17px_0_#000]">
+      <div className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-4 space-y-4">
         {/* Event Image */}
         {event.image_url && (
           <img

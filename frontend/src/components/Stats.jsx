@@ -10,12 +10,12 @@ const Stats = () => {
   ];
 
   return (
-    <main className=" border-b flex flex-col items-center justify-center px-6 py-20 bg-gray-50">
-      <h1 className="text-5xl font-[font2] text-blue-700 mb-12 text-center">
-        Stats
+    <main className=" border-b flex flex-col items-center justify-center px-6 py-20 hero">
+      <h1 className="text-5xl md:text-7xl font-[font2] text-blue-700 mb-20 text-center">
+        STATS
       </h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full mb-10">
         {stats.map((stat, index) => (
           <div
             key={index}

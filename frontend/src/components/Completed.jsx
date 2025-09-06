@@ -3,7 +3,7 @@ import React from "react";
 
 const Completed = () => {
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12">
+    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-12 hero">
       <h1 className="text-5xl font-[sketch] text-blue-700 mb-10 text-center">
         Completed
       </h1>
