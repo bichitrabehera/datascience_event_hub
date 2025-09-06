@@ -7,7 +7,7 @@ const HeroSection = () => {
     <div className=" hero min-h-[90vh] flex items-center justify-center mt-10 border-b">
       {/* Overlay */}
       <div className="text-center px-6">
-        <h1 className="text-5xl md:text-[6vw] leading-tight font-[font1] text-black">
+        <h1 className="text-6xl md:text-[6vw] font-[font1] text-black">
           Department of
         </h1>
         <h1 className="text-5xl md:text-[6vw] leading-tight font-[sketch] text-blue-700">

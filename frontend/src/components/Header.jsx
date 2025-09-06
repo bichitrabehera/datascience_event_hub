@@ -12,7 +12,7 @@ export default function Header() {
         <h1 className="">
           <Link
             to="/"
-            className="text-3xl text-[#6f00ff] transition font-[sketch]"
+            className="text-2xl md:text-3xl text-[#6f00ff] transition font-[font2]"
           >
             Data Verse
           </Link>
@@ -41,7 +41,7 @@ export default function Header() {
           className="md:hidden p-2 rounded hover:bg-gray-200 transition"
           onClick={() => setIsOpen(true)}
         >
-          <Menu size={28} />
+          <i className="ri-menu-4-line text-3xl"></i>
         </button>
       </div>
 
