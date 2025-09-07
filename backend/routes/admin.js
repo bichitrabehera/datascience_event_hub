@@ -1,19 +1,24 @@
-import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import pool from "../database.js";
-import upload from "../middleware/multer.middleware.js";
-import cloudinary from "../utils/cloudinary.js"; // make sure you have this
-import streamifier from "streamifier";
+const express = require("express");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const pool = require("../database.js");
+const upload = require("../middleware/multer.middleware.js");
+const cloudinary = require("../utils/cloudinary.js");
+const streamifier = require("streamifier");
+
+const JWT_SECRET = process.env.JWT_SECRET || "dev_secret";
 
 const router = express.Router();
 
 // Middleware to verify JWT token
 const verifyToken = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
+  let token = req.header("Authorization")?.replace("Bearer ", "");
+  if (!token) {
+    token = req.query.token; // Check query param if header not present
+  }
   if (!token) return res.status(401).json({ error: "Access denied" });
   try {
-    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    const verified = jwt.verify(token, JWT_SECRET);
     req.admin = verified;
     next();
   } catch (err) {
@@ -88,7 +93,7 @@ router.post("/auth/login", async (req, res) => {
 
     const token = jwt.sign(
       { id: admin.id, role: admin.role },
-      process.env.JWT_SECRET,
+      JWT_SECRET,
       { expiresIn: "1h" }
     );
     res.json({
@@ -357,4 +362,4 @@ router.get("/events/:id/submissions", verifyToken, async (req, res) => {
   }
 });
 
-export default router;
+module.exports = router;
