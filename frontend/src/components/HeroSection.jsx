@@ -1,13 +1,13 @@
 // import React, { useEffect, useRef } from "react";
 
-import { Link } from "lucide-react";
+import { Link, ChevronDown } from "lucide-react";
 
 const HeroSection = () => {
   return (
-    <div className=" hero min-h-[90vh] flex items-center justify-center mt-10 border-b">
+    <div className=" hero min-h-[90vh] flex items-center justify-center mt-10 border-b overflow-hidden">
       {/* Overlay */}
       <div className="text-center px-6">
-        <h1 className="text-6xl md:text-[6vw] font-[font1] text-black">
+        <h1 className="text-5xl md:text-[6vw] font-[font1] text-black">
           Department of
         </h1>
         <h1 className="text-5xl md:text-[6vw] leading-tight font-[sketch] text-blue-700">
@@ -20,7 +20,7 @@ const HeroSection = () => {
           AMC Engineering College , Bangalore
         </p>
         <div className="mt-8 flex gap-2 justify-center">
-          <button className="inline-block px-4 py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition">
+          <button className="inline-block px-6 py-3 mt-4 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition">
             <a href="#events">Explore Events</a>
             {/* <Link to="#events">Explore Events</Link> */}
           </button>

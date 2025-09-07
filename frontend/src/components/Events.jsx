@@ -47,7 +47,7 @@ export default function Events() {
             <img
               src={event.image_url}
               alt={`Banner for ${event.title}`}
-              className="w-full h-64 object-cover border-b-4 border-black"
+              className="w-full h-50 object-cover border-b-4 border-black"
             />
             <div className="p-6">
               <h3 className="text-2xl font-semibold text-gray-900 mb-2">
@@ -98,7 +98,7 @@ export default function Events() {
           {upcoming.length > 0 ? (
             <EventGrid data={upcoming} />
           ) : (
-            <p className="text-center text-gray-600">
+            <p className="text-center text-gray-600 border-1 border-dashed pt-20 pb-20">
               No upcoming events available. Please check back later.
             </p>
           )}
@@ -113,7 +113,7 @@ export default function Events() {
           ) : (
             <div className="h-50 border-1  items-center flex justify-center">
               {" "}
-              <p className="text-center  text-gray-600">
+              <p className="text-center  text-gray-600 border-1 border-dashed pt-20 pb-20">
                 No ongoing events at the moment.
               </p>
             </div>
@@ -128,7 +128,7 @@ export default function Events() {
           {past.length > 0 ? (
             <EventGrid data={past} />
           ) : (
-            <p className="text-center text-gray-600">No past events found.</p>
+            <p className="text-center text-gray-600 border-1 border-dashed pt-20 pb-20">No past events found.</p>
           )}
         </section>
       </div>

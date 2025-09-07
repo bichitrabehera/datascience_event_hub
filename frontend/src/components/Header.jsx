@@ -19,7 +19,7 @@ export default function Header() {
         </h1>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-10 text-[1vw]">
+        <nav className="hidden md:flex space-x-10 text-xl">
           <Link
             to="/"
             className="hover:text-blue-400 transition hover:underline"

@@ -71,24 +71,33 @@ export default function EventRegister() {
     return <p className="text-gray-500 text-center mt-10">Loading...</p>;
 
   return (
-    <main className="min-h-screen flex flex-col justify-center items-center px-6 py-16 hero">
+    <main className="min-h-screen flex flex-col justify-center items-center px-6 py-16 hero bg-gradient-to-br from-blue-100 via-white to-green-100">
       {/* Title */}
-      <h1 className="text-3xl md:text-5xl font-[font2] text-blue-700 m-10 text-center">
+      <h1 className="text-3xl md:text-5xl font-[font2] text-blue-700 mt-10 text-center">
         Register for {event.title}
       </h1>
+      <p className="text-lg text-gray-700 mt-5 mb-10 text-center max-w-2xl">
+        Fill out the form below to secure your spot at{" "}
+        <span className="font-semibold">{event.title}</span>. We can’t wait to
+        see you there!
+      </p>
 
       {/* Card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-6"
+        className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-8"
       >
-        {/* Grid for basic info */}
+        {/* Basic Info Section */}
+        <h2 className="text-xl font-bold text-blue-800 border-b-2 border-black pb-2">
+          Basic Information
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Name */}
           <div>
             <label className="block mb-1 font-semibold">Full Name</label>
             <input
               type="text"
+              placeholder="John Doe"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -103,6 +112,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Email</label>
             <input
               type="email"
+              placeholder="johndoe@email.com"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -117,7 +127,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Year</label>
             <input
               type="text"
-              placeholder="e.g., 2nd Year"
+              placeholder="2nd Year"
               value={formData.year}
               onChange={(e) =>
                 setFormData({ ...formData, year: e.target.value })
@@ -132,7 +142,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Department</label>
             <input
               type="text"
-              placeholder="e.g., CSE"
+              placeholder="CSE"
               value={formData.department}
               onChange={(e) =>
                 setFormData({ ...formData, department: e.target.value })
@@ -147,6 +157,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">USN</label>
             <input
               type="text"
+              placeholder="1RV21CS001"
               value={formData.usn}
               onChange={(e) =>
                 setFormData({ ...formData, usn: e.target.value })
@@ -156,11 +167,12 @@ export default function EventRegister() {
             />
           </div>
 
-          {/* Phone Number */}
+          {/* Phone */}
           <div>
             <label className="block mb-1 font-semibold">Phone Number</label>
             <input
               type="tel"
+              placeholder="+91 98765 43210"
               value={formData.phone_number}
               onChange={(e) =>
                 setFormData({ ...formData, phone_number: e.target.value })
@@ -171,15 +183,18 @@ export default function EventRegister() {
           </div>
         </div>
 
-        {/* Render custom event-specific fields */}
+        {/* Event-specific Section */}
         {customFields.length > 0 && (
           <div className="space-y-4">
-            <h2 className="text-lg font-semibold">Additional Information</h2>
+            <h2 className="text-xl font-bold text-blue-800 border-b-2 border-black pb-2">
+              Additional Information
+            </h2>
             {customFields.map((field) => (
               <div key={field.label} className="flex flex-col">
                 <label className="mb-1 font-semibold">{field.label}</label>
                 {field.type === "textarea" ? (
                   <textarea
+                    placeholder="Enter your response here..."
                     required={field.required}
                     onChange={(e) =>
                       setFormData({
@@ -210,6 +225,7 @@ export default function EventRegister() {
                 ) : (
                   <input
                     type={field.type}
+                    placeholder={`Enter ${field.label}`}
                     required={field.required}
                     onChange={(e) =>
                       setFormData({
@@ -225,13 +241,18 @@ export default function EventRegister() {
           </div>
         )}
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="submit"
           className="w-full bg-green-600 text-white font-bold py-3 rounded-md border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
         >
-          Register
+          Register Now 🚀
         </button>
+
+        {/* Optional success/error message placeholder */}
+        {/* <p className="text-center text-sm text-gray-500">
+          After submitting, you will receive a confirmation email.
+        </p> */}
       </form>
     </main>
   );
