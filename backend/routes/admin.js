@@ -237,6 +237,9 @@ router.delete("/events/:id", verifyToken, async (req, res) => {
     // Delete form submissions
     await pool.query("DELETE FROM form_submissions WHERE event_id = $1", [id]);
 
+    // Delete rsvps
+    await pool.query("DELETE FROM rsvps WHERE event_id = $1", [id]);
+
     // Then delete the event itself
     const result = await pool.query(
       "DELETE FROM events WHERE id=$1 RETURNING *",
