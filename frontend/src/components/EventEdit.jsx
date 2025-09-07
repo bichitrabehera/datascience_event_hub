@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { API } from "../constants/api";
 
 export default function EventEdit() {
@@ -124,6 +124,12 @@ export default function EventEdit() {
           >
             Update Event
           </button>
+          <Link
+            to={`/admin/events/${id}/form`}
+            className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 inline-block ml-4"
+          >
+            Design Form
+          </Link>
         </form>
       </div>
     </main>

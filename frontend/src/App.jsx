@@ -1,5 +1,6 @@
 import EventForm from "./components/EventForm.jsx";
 import EventRegistrations from "./components/Registrations.jsx";
+import FormBuilder from "./components/FormBuilder.jsx";
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 
@@ -133,6 +134,16 @@ const App = () => {
             <ProtectedRoute>
               <AdminLayout>
                 <EventRegistrations />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/events/:id/form"
+          element={
+            <ProtectedRoute>
+              <AdminLayout>
+                <FormBuilder />
               </AdminLayout>
             </ProtectedRoute>
           }

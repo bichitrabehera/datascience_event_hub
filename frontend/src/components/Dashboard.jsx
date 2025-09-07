@@ -83,6 +83,12 @@ export default function AdminDashboard() {
                 >
                   Registrations
                 </Link>
+                <Link
+                  to={`/admin/events/${e.id}/form`}
+                  className="px-2 py-1 bg-purple-600 text-white rounded"
+                >
+                  Design Form
+                </Link>
               </div>
             </div>
           ))}
