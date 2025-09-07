@@ -7,7 +7,7 @@ const Contact = () => {
         Contact Us
       </h1>
 
-      <div className="bg-white w-full max-w-4xl border-4 border-black shadow-[12px_12px_0_#000] p-4 space-y-4">
+      <div className="bg-white w-full max-w-4xl border-4 border-black md:text-xl shadow-[12px_12px_0_#000] p-6 space-y-4">
         <p className="text-gray-800 text leading-relaxed">
           Have questions or need assistance? We’re here to help!
         </p>

@@ -97,7 +97,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Full Name</label>
             <input
               type="text"
-              placeholder="John Doe"
+              placeholder="Your Name"
               value={formData.name}
               onChange={(e) =>
                 setFormData({ ...formData, name: e.target.value })
@@ -112,7 +112,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Email</label>
             <input
               type="email"
-              placeholder="johndoe@email.com"
+              placeholder="email@gmail.com"
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
@@ -127,7 +127,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Year</label>
             <input
               type="text"
-              placeholder="2nd Year"
+              placeholder="Year"
               value={formData.year}
               onChange={(e) =>
                 setFormData({ ...formData, year: e.target.value })
@@ -142,7 +142,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">Department</label>
             <input
               type="text"
-              placeholder="CSE"
+              placeholder="CS-DS"
               value={formData.department}
               onChange={(e) =>
                 setFormData({ ...formData, department: e.target.value })
@@ -157,7 +157,7 @@ export default function EventRegister() {
             <label className="block mb-1 font-semibold">USN</label>
             <input
               type="text"
-              placeholder="1RV21CS001"
+              placeholder="1AM01CD000"
               value={formData.usn}
               onChange={(e) =>
                 setFormData({ ...formData, usn: e.target.value })

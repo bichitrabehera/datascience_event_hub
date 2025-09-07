@@ -97,7 +97,7 @@ export default function EventDetails() {
             to={`/events/${id}/register`}
             className="inline-block px-6 py-3 bg-green-600 text-white font-bold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
           >
-            Register Now 🚀
+            Register Now
           </Link>
         </div>
       </div>

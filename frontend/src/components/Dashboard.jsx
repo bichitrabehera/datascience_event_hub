@@ -49,7 +49,7 @@ export default function AdminDashboard() {
           + Add New Event
         </Link>
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
           {events.map((e) => (
             <div
               key={e.id}
