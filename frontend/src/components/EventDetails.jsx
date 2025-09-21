@@ -10,6 +10,8 @@ export default function EventDetails() {
     async function fetchEvent() {
       try {
         const response = await fetch(API.EVENT_DETAILS(id));
+        console.log("useParams id:", id);
+
         if (!response.ok) throw new Error("Failed to load event");
         const data = await response.json();
         setEvent(data);
@@ -29,13 +31,22 @@ export default function EventDetails() {
   if (!event)
     return <p className="text-gray-500 text-center mt-10">Loading...</p>;
 
+  // --- Event status check ---
+  const now = new Date();
+  const startDate = new Date(event.starts_at);
+  const endDate = new Date(event.ends_at);
+
+  let isUpcoming = startDate > now;
+  // let isOngoing = startDate <= now && endDate >= now;
+  // let isPast = endDate < now;
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-6 py-20 hero bg-gradient-to-br from-blue-100 via-white to-green-100">
+    <main className="min-h-screen text-sm flex flex-col items-center justify-center px-6 py-20 hero bg-gradient-to-br from-blue-100 via-white to-green-100">
       {/* Title */}
       <h1 className="text-3xl md:text-5xl font-[sketch] text-blue-700 mt-10 text-center">
         Event Details
       </h1>
-      <p className="text-xl mb-10 text-center text-gray-700">
+      <p className="text-sm px-10 py-3 mb-3 md:text-lg text-center text-gray-700">
         Everything you need to know about the upcoming event
       </p>
 
@@ -54,12 +65,12 @@ export default function EventDetails() {
         <h2 className="text-3xl font-bold text-gray-900">{event.title}</h2>
 
         {/* Key Info */}
-        <div className="grid sm:grid-cols-2 gap-4 text-gray-800 ">
-          <div className="flex items-center space-x-2">
+        <div className="grid sm:grid-cols-2 gap-1 text-gray-800 ">
+          <div className="flex items-center space-x-1">
             <span className="text-blue-700 font-semibold">Starts:</span>
             <span>
-              {new Date(event.starts_at).toLocaleDateString()}{" "}
-              {new Date(event.starts_at).toLocaleTimeString([], {
+              {startDate.toLocaleDateString()}{" "}
+              {startDate.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
@@ -68,8 +79,8 @@ export default function EventDetails() {
           <div className="flex items-center space-x-2">
             <span className="text-blue-700 font-semibold">Ends:</span>
             <span>
-              {new Date(event.ends_at).toLocaleDateString()}{" "}
-              {new Date(event.ends_at).toLocaleTimeString([], {
+              {endDate.toLocaleDateString()}{" "}
+              {endDate.toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}
@@ -92,14 +103,16 @@ export default function EventDetails() {
         </div>
 
         {/* CTA */}
-        <div className="pt-4 text-center">
-          <Link
-            to={`/events/${id}/register`}
-            className="inline-block px-6 py-3 bg-green-600 text-white font-bold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
-          >
-            Register Now
-          </Link>
-        </div>
+        {isUpcoming && (
+          <div className="pt-4 text-center">
+            <Link
+              to={`/events/${id}/register`}
+              className="inline-block px-6 py-3 bg-green-600 text-white font-bold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
+            >
+              Register Now
+            </Link>
+          </div>
+        )}
       </div>
     </main>
   );

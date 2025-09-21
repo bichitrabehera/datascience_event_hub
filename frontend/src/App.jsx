@@ -44,7 +44,7 @@ const AdminLayout = ({ children }) => (
 const App = () => {
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div>
       <ScrollToTop />
       <Routes>
         {/* Public routes */}
@@ -77,14 +77,6 @@ const App = () => {
           element={
             <PublicLayout>
               <Completed />
-            </PublicLayout>
-          }
-        />
-        <Route
-          path="/contact"
-          element={
-            <PublicLayout>
-              <Contact />
             </PublicLayout>
           }
         />

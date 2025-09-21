@@ -5,6 +5,7 @@ import { API } from "../constants/api";
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState("");
+  const [activeTab, setActiveTab] = useState("ongoing"); // Track which tab is active
 
   useEffect(() => {
     async function fetchEvents() {
@@ -28,7 +29,6 @@ export default function Events() {
       </main>
     );
 
-  // Split events into categories
   const now = new Date();
   const upcoming = events.filter((e) => new Date(e.starts_at) > now);
   const ongoing = events.filter(
@@ -37,8 +37,15 @@ export default function Events() {
   const past = events.filter((e) => new Date(e.ends_at) < now);
 
   function EventGrid({ data }) {
+    if (!data.length)
+      return (
+        <p className="text-center text-gray-600 border-1 border-dashed pt-20 pb-20">
+          No events found.
+        </p>
+      );
+
     return (
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 ">
+      <div className="grid gap-8 text-sm sm:grid-cols-2 lg:grid-cols-3">
         {data.map((event) => (
           <div
             key={event.id}
@@ -60,13 +67,11 @@ export default function Events() {
               <div className="text-sm text-gray-700 space-y-1 mb-4">
                 <p>
                   <span className="font-medium">Starts:</span>{" "}
-                  {new Date(event.starts_at).toLocaleDateString()}{" "}
-                  {new Date(event.starts_at).toLocaleTimeString()}
+                  {new Date(event.starts_at).toLocaleDateString()}
                 </p>
                 <p>
                   <span className="font-medium">Ends:</span>{" "}
-                  {new Date(event.ends_at).toLocaleDateString()}{" "}
-                  {new Date(event.ends_at).toLocaleTimeString()}
+                  {new Date(event.ends_at).toLocaleDateString()}
                 </p>
                 <p>
                   <span className="font-medium">Location:</span>{" "}
@@ -88,50 +93,37 @@ export default function Events() {
   }
 
   return (
-    <main className="min-h-screen py-20 px-6 border-b hero">
-      <div className="max-w-6xl mx-auto space-y-16">
-        {/* Upcoming Events */}
-        <section id="events">
-          <h2 className="text-5xl md:text-7xl  font-[font2] text-blue-700 text-center mb-20">
-            Upcoming Events
-          </h2>
-          {upcoming.length > 0 ? (
-            <EventGrid data={upcoming} />
-          ) : (
-            <p className="text-center text-gray-600 border-1 border-dashed pt-20 pb-20">
-              No upcoming events available. Please check back later.
-            </p>
-          )}
-        </section>
+    <section id="events" className=" py-20 px-6 hero">
+      <div className="max-w-6xl mx-auto space-y-2">
+        <h1 className="font-[font2] text-5xl md:text-7xl text-blue-600 text-center">
+          Events
+        </h1>
+        <p className="text-sm py-8 md:text-xl text-gray-700 text-center p-3 max-w-3xl mx-auto">
+          Explore our ongoing and upcoming events, workshops, and competitions.
+          Join the community to learn, collaborate, and innovate with fellow developers
+          and tech enthusiasts.
+        </p>
+        {/* Tabs */}
+        <div className="flex justify-center gap-4 mb-12">
+          {["ongoing", "upcoming", "past"].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-2 font-semibold border-2 rounded-md transition ${activeTab === tab
+                ? "bg-blue-600 text-white border-black shadow-[4px_4px_0_#000]"
+                : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+                }`}
+            >
+              {tab.charAt(0).toUpperCase() + tab.slice(1)}
+            </button>
+          ))}
+        </div>
 
-        <section>
-          <h2 className="text-5xl md:text-7xl font-[font2] text-blue-700 text-center mb-20">
-            Ongoing Events
-          </h2>
-          {ongoing.length > 0 ? (
-            <EventGrid data={ongoing} />
-          ) : (
-            <div className="h-50 border-1  items-center flex justify-center">
-              {" "}
-              <p className="text-center  text-gray-600 border-1 border-dashed pt-20 pb-20">
-                No ongoing events at the moment.
-              </p>
-            </div>
-          )}
-        </section>
-
-        {/* Past Events */}
-        <section>
-          <h2 className="text-5xl md:text-7xl font-[font2] text-blue-700 text-center mb-20">
-            Past Events
-          </h2>
-          {past.length > 0 ? (
-            <EventGrid data={past} />
-          ) : (
-            <p className="text-center text-gray-600 border-1 border-dashed pt-20 pb-20">No past events found.</p>
-          )}
-        </section>
+        {/* Event Grid */}
+        {activeTab === "ongoing" && <EventGrid data={ongoing} />}
+        {activeTab === "upcoming" && <EventGrid data={upcoming} />}
+        {activeTab === "past" && <EventGrid data={past} />}
       </div>
-    </main>
+    </section>
   );
 }

@@ -18,9 +18,9 @@ html {
   background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png");
 }
 
-/* ::-webkit-scrollbar {
+::-webkit-scrollbar {
   display: none;
-} */
+}
 
 @font-face {
   font-family: sketch;

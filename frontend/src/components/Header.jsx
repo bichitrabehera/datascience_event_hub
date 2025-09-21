@@ -1,75 +1,83 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { X, Menu } from "lucide-react";
+import { Link as ScrollLink } from "react-scroll"; // Smooth scrolling
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Navigation items
+  const navItems = [
+    { name: "Home", to: "home", type: "scroll" },
+    { name: "Events", to: "events", type: "scroll" },
+    { name: "About", to: "about", type: "scroll" },
+    { name: "Contact", to: "contact", type: "scroll" },
+  ];
+
   return (
-    <header className=" fixed top-0 left-0 right-0 text-black px-6 py-2 md:py-4 bg-[#FFFFFF]">
-      <div className="max-w-6xl mx-auto flex justify-between items-center">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white px-6 py-3 md:py-4">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
         {/* Logo */}
-        <h1 className="">
+        <h1>
           <Link
             to="/"
-            className="text-2xl md:text-3xl text-[#6f00ff] transition font-[font2]"
+            className="text-xl md:text-2xl text-[#6f00ff] font-[font2] transition"
           >
             Data Verse
           </Link>
         </h1>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-10 text-xl">
-          <Link
-            to="/"
-            className="hover:text-blue-400 transition hover:underline"
-            onClick={() => setIsOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            to="/contact"
-            className="hover:text-blue-400 transition hover:underline"
-            onClick={() => setIsOpen(false)}
-          >
-            Contact
-          </Link>
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-10 text-sm font-medium">
+          {navItems.map((item) => (
+            <ScrollLink
+              key={item.name}
+              to={item.to}
+              smooth="easeInOutCubic"
+              duration={100} // smooth + quick
+              className="cursor-pointer hover:text-blue-400 transition"
+              offset={-80}
+            >
+              {item.name}
+            </ScrollLink>
+
+          ))}
         </nav>
 
         {/* Mobile Hamburger */}
         <button
-          className="md:hidden p-2 rounded hover:bg-gray-200 transition"
+          className="md:hidden p-1 rounded hover:bg-gray-200 transition"
           onClick={() => setIsOpen(true)}
         >
           <i className="ri-menu-4-line text-3xl"></i>
         </button>
       </div>
 
-      {/* Fullscreen Mobile Menu */}
+      {/* Mobile Menu Overlay */}
       {isOpen && (
-        <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center space-y-8 text-black text-2xl z-50">
-          {/* Close Button inside overlay */}
+        <div className="fixed inset-0 bg-white bg-opacity-95 flex flex-col items-center justify-center space-y-8 text-2xl z-50">
+          {/* Close Button */}
           <button
-            className="absolute top-6 right-6 p-2 hover:bg-gray-700 rounded"
+            className="absolute top-5 right-6 p-2 rounded hover:bg-gray-200"
             onClick={() => setIsOpen(false)}
           >
             <X size={32} />
           </button>
 
-          <Link
-            to="/"
-            className="hover:text-blue-400 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Home
-          </Link>
-          <Link
-            to="/contact"
-            className="hover:text-blue-400 transition"
-            onClick={() => setIsOpen(false)}
-          >
-            Contact
-          </Link>
+          {/* Mobile Nav Items */}
+          {navItems.map((item) => (
+            <ScrollLink
+              key={item.name}
+              to={item.to}
+              smooth={true}
+              duration={500}
+              className="cursor-pointer hover:text-blue-400 transition"
+              offset={-80} // adjust for header height
+              onClick={() => setIsOpen(false)}
+            >
+              {item.name}
+            </ScrollLink>
+          ))}
         </div>
       )}
     </header>
