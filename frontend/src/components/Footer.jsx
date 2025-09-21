@@ -1,7 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Link as ScrollLink } from "react-scroll"; // Smooth scrolling
 
 const Footer = () => {
+  const navItems = [
+    { name: "Home", to: "home", type: "scroll" },
+    { name: "Events", to: "events", type: "scroll" },
+    { name: "About", to: "about", type: "scroll" },
+    { name: "Contact", to: "contact", type: "scroll" },
+  ];
   return (
     <footer className="bg-blue-800 text-gray-200">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -22,20 +29,19 @@ const Footer = () => {
             Quick Links
           </h3>
           <ul className="space-y-2 text-sm text-gray-800">
-            <li>
-              <Link to="/" className="hover:underline hover:text-blue-700">
-                Home
-              </Link>
-            </li>
-
-            <li>
-              <Link
-                to="/contact"
-                className="hover:underline hover:text-blue-700"
+            <li className="flex flex-col">{navItems.map((item) => (
+              <ScrollLink
+                key={item.name}
+                to={item.to}
+                smooth="easeInOutCubic"
+                duration={100} // smooth + quick
+                className="cursor-pointer hover:text-blue-700 transition"
+                offset={-80}
               >
-                Contact
-              </Link>
-            </li>
+                {item.name}
+              </ScrollLink>
+
+            ))}</li>
           </ul>
         </div>
 

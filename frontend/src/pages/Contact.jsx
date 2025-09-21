@@ -13,7 +13,7 @@ const Contact = () => {
       </p>
 
 
-      <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl">
+      <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl">
         {/* Contact Info Box */}
         <div className="bg-white border-4 border-black shadow-[12px_12px_0_#000] p-6 flex-1 space-y-4">
           <p className="text-gray-800 leading-relaxed">
@@ -26,9 +26,7 @@ const Contact = () => {
             1am23cd053@amceducation.in
           </p>
 
-          <p className="text-gray-800 leading-relaxed">
-            <span className="font-bold">Phone:</span> <br /> +91 99999 99999
-          </p>
+        
 
           <p className="text-gray-800 leading-relaxed">
             <span className="font-bold">Address:</span> <br />
