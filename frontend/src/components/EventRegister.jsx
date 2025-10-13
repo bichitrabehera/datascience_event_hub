@@ -85,7 +85,7 @@ export default function EventRegister() {
       {/* Card */}
       <form
         onSubmit={handleSubmit}
-        className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-8 space-y-8"
+        className="bg-white w-full max-w-5xl border-4 rounded-lg border-black shadow-[12px_12px_0_#000] p-8 space-y-8"
       >
         {/* Basic Info Section */}
         <h2 className="text-xl font-bold text-blue-800 border-b-2 border-black pb-2">
@@ -233,7 +233,7 @@ export default function EventRegister() {
                         [field.label]: e.target.value,
                       })
                     }
-                    className="w-full border-2 border-black px-3 py-2 rounded-md"
+                    className="w-full border-2 border-black px-3 py-2 rounded-sm"
                   />
                 )}
               </div>
@@ -244,7 +244,7 @@ export default function EventRegister() {
         {/* Submit */}
         <button
           type="submit"
-          className="w-full bg-green-600 text-white font-bold py-3 rounded-md border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
+          className="w-[200px] bg-green-600 text-white font-bold py-3 rounded-md border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
         >
           Register Now 🚀
         </button>

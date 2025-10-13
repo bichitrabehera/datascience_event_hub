@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { API } from "../constants/api";
 
 export default function EventForm() {
-  const { id } = useParams(); // if id exists → edit mode
+  const { id } = useParams();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
 
@@ -17,6 +17,38 @@ export default function EventForm() {
   });
   const [imageFile, setImageFile] = useState(null);
 
+  // 🕒 Convert UTC date string → Asia/Kolkata local string for datetime-local input
+  const toLocalIST = (utcString) => {
+    if (!utcString) return "";
+    const date = new Date(utcString);
+    if (isNaN(date)) return "";
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const localDate = new Date(date.getTime() + IST_OFFSET_MS);
+    // Format as yyyy-MM-ddTHH:mm suitable for <input type="datetime-local">
+    const pad = (n) => String(n).padStart(2, "0");
+    const year = localDate.getUTCFullYear();
+    const month = pad(localDate.getUTCMonth() + 1);
+    const day = pad(localDate.getUTCDate());
+    const hours = pad(localDate.getUTCHours());
+    const minutes = pad(localDate.getUTCMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  // 🕒 Convert Asia/Kolkata local datetime-local value → UTC for backend
+  const toUTC = (localString) => {
+    if (!localString) return "";
+    // Expecting format: YYYY-MM-DDTHH:mm
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const [datePart, timePart] = localString.split("T");
+    if (!datePart || !timePart) return "";
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hour, minute] = timePart.split(":").map(Number);
+    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v))) return "";
+    // Create a UTC millis value for the wall-clock IST time, then subtract IST offset to get true UTC
+    const utcMillis = Date.UTC(year, month - 1, day, hour, minute) - IST_OFFSET_MS;
+    return new Date(utcMillis).toISOString();
+  };
+
   useEffect(() => {
     if (id) {
       // edit mode
@@ -28,8 +60,8 @@ export default function EventForm() {
           const data = await res.json();
           setEventData({
             ...data,
-            starts_at: data.starts_at.slice(0, 16),
-            ends_at: data.ends_at.slice(0, 16),
+            starts_at: toLocalIST(data.starts_at),
+            ends_at: toLocalIST(data.ends_at),
           });
         } catch (err) {
           console.error(err);
@@ -42,7 +74,15 @@ export default function EventForm() {
   async function handleSubmit(e) {
     e.preventDefault();
     const formData = new FormData();
-    Object.entries(eventData).forEach(([key, val]) =>
+
+    // Convert IST → UTC before sending
+    const eventToSubmit = {
+      ...eventData,
+      starts_at: toUTC(eventData.starts_at),
+      ends_at: toUTC(eventData.ends_at),
+    };
+
+    Object.entries(eventToSubmit).forEach(([key, val]) =>
       formData.append(key, val)
     );
     if (imageFile) formData.append("image", imageFile);
@@ -98,6 +138,9 @@ export default function EventForm() {
           required
           className="w-full border rounded p-2"
         />
+
+        {/* 🕐 Start & End Date/Time Inputs (IST local) */}
+        <label className="block text-sm font-medium">Start Time (IST)</label>
         <input
           type="datetime-local"
           name="starts_at"
@@ -108,6 +151,8 @@ export default function EventForm() {
           required
           className="w-full border rounded p-2"
         />
+
+        <label className="block text-sm font-medium">End Time (IST)</label>
         <input
           type="datetime-local"
           name="ends_at"
@@ -118,6 +163,7 @@ export default function EventForm() {
           required
           className="w-full border rounded p-2"
         />
+
         <input
           name="location"
           placeholder="Location"

@@ -2,27 +2,27 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { API } from "../constants/api";
 
-export default function AdminDashboard() {
+export default function Dashboard() {
   const [events, setEvents] = useState([]);
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   useEffect(() => {
+    async function fetchEvents() {
+      try {
+        const res = await fetch(API.EVENTS, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const data = await res.json();
+        setEvents(data);
+      } catch (err) {
+        console.error("Failed to fetch events:", err);
+      }
+    }
+
     if (!token) navigate("/admin/login");
     else fetchEvents();
   }, [token, navigate]);
-
-  async function fetchEvents() {
-    try {
-      const res = await fetch(API.EVENTS, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-      const data = await res.json();
-      setEvents(data);
-    } catch (err) {
-      console.error("Failed to fetch events:", err);
-    }
-  }
 
   async function handleDelete(id) {
     if (!window.confirm("Delete this event?")) return;
@@ -49,7 +49,7 @@ export default function AdminDashboard() {
           + Add New Event
         </Link>
 
-        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+        <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-2">
           {events.map((e) => (
             <div
               key={e.id}
@@ -58,10 +58,24 @@ export default function AdminDashboard() {
               <h2 className="text-xl font-semibold">{e.title}</h2>
               <p>{e.description}</p>
               <p>
-                <strong>Start:</strong> {new Date(e.starts_at).toLocaleString()}
+                <strong>Start:</strong>{" "}
+                {new Date(e.starts_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
+                {new Date(e.starts_at).toLocaleTimeString("en-IN", {
+                  timeZone: "Asia/Kolkata",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                })}
               </p>
               <p>
-                <strong>End:</strong> {new Date(e.ends_at).toLocaleString()}
+                <strong>End:</strong>{" "}
+                {new Date(e.ends_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
+                {new Date(e.ends_at).toLocaleTimeString("en-IN", {
+                  timeZone: "Asia/Kolkata",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  hour12: true,
+                })}
               </p>
 
               <div className="flex gap-2 mt-3">

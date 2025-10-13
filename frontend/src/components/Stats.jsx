@@ -19,7 +19,7 @@ const Stats = () => {
         {stats.map((stat, index) => (
           <div
             key={index}
-            className="bg-white border-1 border-black shadow-[12px_12px_0_#000] p-8 text-center hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[17px_17px_0_#000] transition-transform"
+            className="bg-white border-1 rounded border-black shadow-[12px_12px_0_#000] p-8 text-center hover:-translate-x-1 hover:-translate-y-1 hover:shadow-[17px_17px_0_#000] transition-transform"
           >
             <p className="text-4xl font-bold text-purple-700 mb-2">
               {stat.value}

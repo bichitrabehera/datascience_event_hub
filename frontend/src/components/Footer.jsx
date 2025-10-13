@@ -13,7 +13,7 @@ const Footer = () => {
     <footer className="bg-blue-800 text-gray-200">
       <div className="max-w-7xl mx-auto px-6 py-16 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* About Section */}
-        <div className="border-4 border-black bg-white p-6 shadow-[6px_6px_0_#000]">
+        <div className="border-4 border-black bg-white p-6 shadow-[6px_6px_0_#000] rounded-xl">
           <h3 className="text-lg font-bold text-blue-700 uppercase mb-3">
             About Us
           </h3>
@@ -24,7 +24,7 @@ const Footer = () => {
         </div>
 
         {/* Quick Links */}
-        <div className="border-4 border-black bg-white p-6 shadow-[6px_6px_0_#000]">
+        <div className="border-4 border-black bg-white p-6 shadow-[6px_6px_0_#000] rounded-xl">
           <h3 className="text-lg font-bold text-blue-700 uppercase mb-3">
             Quick Links
           </h3>
@@ -46,7 +46,7 @@ const Footer = () => {
         </div>
 
         {/* Creators */}
-        <div className="border-4 border-black bg-white p-6 shadow-[6px_6px_0_#000]">
+        <div className="border-4 border-black bg-white p-6 shadow-[6px_6px_0_#000] rounded-xl">
           <h3 className="text-lg font-bold text-blue-700 uppercase mb-3">
             Creators
           </h3>
@@ -55,7 +55,7 @@ const Footer = () => {
               <a
                 href="https://bichitrabehera-blue.vercel.app"
                 target="_blank"
-                className="inline-block border-2 border-black px-3 py-1 bg-blue-600 text-white font-semibold hover:-translate-y-1 hover:shadow-[4px_4px_0_#000] transition"
+                className="inline-block border-2 rounded-sm border-black px-3 py-1 bg-blue-600 text-white font-semibold hover:-translate-y-1 hover:shadow-[4px_4px_0_#000] transition"
               >
                 Bichitra Behera
               </a>
@@ -64,7 +64,7 @@ const Footer = () => {
               <a
                 href="https://port-react.vercel.app/"
                 target="_blank"
-                className="inline-block border-2 border-black px-3 py-1 bg-blue-600 text-white font-semibold hover:-translate-y-1 hover:shadow-[4px_4px_0_#000] transition"
+                className="inline-block border-2 rounded-sm border-black px-3 py-1 bg-blue-600 text-white font-semibold hover:-translate-y-1 hover:shadow-[4px_4px_0_#000] transition"
               >
                 Matharishwa S
               </a>

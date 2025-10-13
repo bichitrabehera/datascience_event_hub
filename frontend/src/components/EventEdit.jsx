@@ -10,6 +10,35 @@ export default function EventEdit() {
   const [event, setEvent] = useState(null);
   const [imageFile, setImageFile] = useState(null);
 
+  // 🕒 Convert UTC date string → Asia/Kolkata local string for datetime-local
+  const toLocalIST = (utcString) => {
+    if (!utcString) return "";
+    const date = new Date(utcString);
+    if (isNaN(date)) return "";
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const localDate = new Date(date.getTime() + IST_OFFSET_MS);
+    const pad = (n) => String(n).padStart(2, "0");
+    const year = localDate.getUTCFullYear();
+    const month = pad(localDate.getUTCMonth() + 1);
+    const day = pad(localDate.getUTCDate());
+    const hours = pad(localDate.getUTCHours());
+    const minutes = pad(localDate.getUTCMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  };
+
+  // 🕒 Convert Asia/Kolkata local datetime → UTC for backend
+  const toUTC = (localString) => {
+    if (!localString) return "";
+    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
+    const [datePart, timePart] = localString.split("T");
+    if (!datePart || !timePart) return "";
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hour, minute] = timePart.split(":").map(Number);
+    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v))) return "";
+    const utcMillis = Date.UTC(year, month - 1, day, hour, minute) - IST_OFFSET_MS;
+    return new Date(utcMillis).toISOString();
+  };
+
   useEffect(() => {
     async function fetchEvent() {
       try {
@@ -18,7 +47,13 @@ export default function EventEdit() {
         });
         if (!res.ok) throw new Error("Failed to load event");
         const data = await res.json();
-        setEvent(data);
+
+        // Convert backend UTC timestamps → local IST time for the input fields
+        setEvent({
+          ...data,
+          starts_at: toLocalIST(data.starts_at),
+          ends_at: toLocalIST(data.ends_at),
+        });
       } catch (err) {
         console.error(err);
       }
@@ -28,8 +63,13 @@ export default function EventEdit() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const formData = new FormData(e.target);
     if (imageFile) formData.append("image", imageFile);
+
+    // Replace local IST input values with UTC before sending
+    formData.set("starts_at", toUTC(formData.get("starts_at")));
+    formData.set("ends_at", toUTC(formData.get("ends_at")));
 
     try {
       const res = await fetch(API.ADMIN_EVENT(id), {
@@ -58,6 +98,7 @@ export default function EventEdit() {
         <h2 className="text-3xl font-[sketch] text-blue-700 mb-6 text-center">
           Edit Event
         </h2>
+
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="title"
@@ -66,6 +107,7 @@ export default function EventEdit() {
             required
             className="w-full border rounded p-2"
           />
+
           <textarea
             name="description"
             defaultValue={event.description}
@@ -73,20 +115,26 @@ export default function EventEdit() {
             required
             className="w-full border rounded p-2"
           />
+
+          {/* 🕐 Start & End Time (IST Local) */}
+          <label className="block text-sm font-medium">Start Time (IST)</label>
           <input
             type="datetime-local"
             name="starts_at"
-            defaultValue={event.starts_at?.slice(0, 16)}
+            defaultValue={event.starts_at}
             required
             className="w-full border rounded p-2"
           />
+
+          <label className="block text-sm font-medium">End Time (IST)</label>
           <input
             type="datetime-local"
             name="ends_at"
-            defaultValue={event.ends_at?.slice(0, 16)}
+            defaultValue={event.ends_at}
             required
             className="w-full border rounded p-2"
           />
+
           <input
             name="location"
             defaultValue={event.location}
@@ -94,6 +142,7 @@ export default function EventEdit() {
             required
             className="w-full border rounded p-2"
           />
+
           <input
             name="category"
             defaultValue={event.category || "general"}
@@ -101,6 +150,7 @@ export default function EventEdit() {
             className="w-full border rounded p-2"
           />
 
+          {/* Image Upload */}
           <div>
             <label className="block font-semibold mb-1">Event Image</label>
             <input
@@ -124,6 +174,7 @@ export default function EventEdit() {
           >
             Update Event
           </button>
+
           <Link
             to={`/admin/events/${id}/form`}
             className="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 inline-block ml-4"
@@ -131,6 +182,30 @@ export default function EventEdit() {
             Design Form
           </Link>
         </form>
+
+        {/* Optional: Preview the IST time in 12-hour format below */}
+        <div className="mt-6 text-center text-sm text-gray-600">
+          <p>
+            <strong>Start:</strong>{" "}
+            {new Date(toUTC(event.starts_at)).toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+              dateStyle: "medium",
+            })}
+          </p>
+          <p>
+            <strong>End:</strong>{" "}
+            {new Date(toUTC(event.ends_at)).toLocaleString("en-IN", {
+              timeZone: "Asia/Kolkata",
+              hour: "2-digit",
+              minute: "2-digit",
+              hour12: true,
+              dateStyle: "medium",
+            })}
+          </p>
+        </div>
       </div>
     </main>
   );

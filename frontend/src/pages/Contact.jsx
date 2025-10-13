@@ -3,7 +3,7 @@ import { Link as ScrollLink } from "react-scroll"; // Smooth scrolling
 
 const Contact = () => {
   return (
-    <main id="contact" className="min-h-screen flex flex-col text-sm items-center justify-center px-6 py-12 hero">
+    <main id="contact" className="min-h-screen flex flex-col  text-sm items-center justify-center px-6 py-12 hero">
       <h1 className="text-5xl md:text-7xl font-[font2] mb-10 text-center">
         Get in <span className="text-blue-600">Touch</span>
       </h1>
@@ -15,7 +15,7 @@ const Contact = () => {
 
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl">
         {/* Contact Info Box */}
-        <div className="bg-white border-4 border-black shadow-[12px_12px_0_#000] p-6 flex-1 space-y-4">
+        <div className="bg-white border-4 border-black shadow-[12px_12px_0_#000] p-6 rounded-xl flex-1 space-y-4">
           <p className="text-gray-800 leading-relaxed">
             Have questions or need assistance? We’re here to help!
           </p>
@@ -26,7 +26,7 @@ const Contact = () => {
             1am23cd053@amceducation.in
           </p>
 
-        
+
 
           <p className="text-gray-800 leading-relaxed">
             <span className="font-bold">Address:</span> <br />
@@ -53,7 +53,7 @@ const Contact = () => {
         </div>
 
         {/* Contact Form Box */}
-        <div className="bg-white border-4 border-black shadow-[12px_12px_0_#000] p-6 flex-1 space-y-4">
+        <div className="bg-white border-4 border-black shadow-[12px_12px_0_#000] p-6 rounded-xl flex-1 space-y-4">
           <p className="text-center text-gray-700 md:text-lg max-w-2xl mx-auto">
             Drop us a message below and we’ll respond within 84600 seconds.
           </p>

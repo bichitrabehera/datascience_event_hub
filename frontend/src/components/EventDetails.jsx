@@ -51,7 +51,7 @@ export default function EventDetails() {
       </p>
 
       {/* Event Card */}
-      <div className="bg-white w-full max-w-3xl border-4 border-black shadow-[12px_12px_0_#000] p-6 space-y-6">
+      <div className="bg-white w-full max-w-3xl border-4 border-black rounded-xl shadow-[12px_12px_0_#000] p-6 space-y-6">
         {/* Event Image */}
         {event.image_url && (
           <img
@@ -69,20 +69,24 @@ export default function EventDetails() {
           <div className="flex items-center space-x-1">
             <span className="text-blue-700 font-semibold">Starts:</span>
             <span>
-              {startDate.toLocaleDateString()}{" "}
-              {startDate.toLocaleTimeString([], {
+              {startDate.toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
+              {startDate.toLocaleTimeString("en-IN", {
                 hour: "2-digit",
                 minute: "2-digit",
+                hour12: true,
+                timeZone: "Asia/Kolkata",
               })}
             </span>
           </div>
           <div className="flex items-center space-x-2">
             <span className="text-blue-700 font-semibold">Ends:</span>
             <span>
-              {endDate.toLocaleDateString()}{" "}
-              {endDate.toLocaleTimeString([], {
+              {endDate.toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
+              {endDate.toLocaleTimeString("en-IN", {
                 hour: "2-digit",
                 minute: "2-digit",
+                hour12: true,
+                timeZone: "Asia/Kolkata",
               })}
             </span>
           </div>
@@ -98,7 +102,7 @@ export default function EventDetails() {
         {/* Organizer Info */}
         <div className="border-t-2 border-black pt-4 text-sm text-gray-700">
           <p>
-            <span className="font-semibold">Organized by:</span> Data Verse
+            <span className="font-semibold">Organized by:</span> Department Of Data Science
           </p>
         </div>
 
@@ -107,7 +111,7 @@ export default function EventDetails() {
           <div className="pt-4 text-center">
             <Link
               to={`/events/${id}/register`}
-              className="inline-block px-6 py-3 bg-green-600 text-white font-bold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
+              className="inline-block px-6 py-3 bg-green-600 rounded-md text-white font-bold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
             >
               Register Now
             </Link>

@@ -74,7 +74,7 @@ export default function FormBuilder() {
 
   return (
     <main className="p-6 min-h-screen">
-      <div className="max-w-4xl mx-auto">
+      <div className="max-w-4xl pt-20 mx-auto">
         <h1 className="text-3xl font-bold mb-6">Design Form for Event {id}</h1>
 
         <div className="space-y-4">
