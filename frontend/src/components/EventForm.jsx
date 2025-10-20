@@ -14,6 +14,7 @@ export default function EventForm() {
     ends_at: "",
     location: "",
     category: "general",
+    amount: 0,
   });
   const [imageFile, setImageFile] = useState(null);
 
@@ -180,6 +181,17 @@ export default function EventForm() {
           value={eventData.category}
           onChange={(e) =>
             setEventData({ ...eventData, category: e.target.value })
+          }
+          className="w-full border rounded p-2"
+        />
+        <input
+          name="amount"
+          type="number"
+          step="0.01"
+          placeholder="Amount (₹)"
+          value={eventData.amount}
+          onChange={(e) =>
+            setEventData({ ...eventData, amount: parseFloat(e.target.value) || 0 })
           }
           className="w-full border rounded p-2"
         />

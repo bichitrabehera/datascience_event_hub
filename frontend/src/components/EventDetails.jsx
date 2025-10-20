@@ -94,6 +94,12 @@ export default function EventDetails() {
             <span className="text-blue-700 font-semibold">Location:</span>
             <span>{event.location}</span>
           </div>
+          {event.amount > 0 && (
+            <div className="flex items-center space-x-2 sm:col-span-2">
+              <span className="text-blue-700 font-semibold">Amount:</span>
+              <span>₹{event.amount}</span>
+            </div>
+          )}
         </div>
 
         {/* Description */}

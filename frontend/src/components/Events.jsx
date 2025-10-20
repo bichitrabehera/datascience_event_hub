@@ -97,6 +97,13 @@ export default function Events() {
                   {event.location}
                 </p>
 
+                {event.amount > 0 && (
+                  <p>
+                    <span className="font-medium">Amount:</span>{" "}
+                    ₹{event.amount}
+                  </p>
+                )}
+
                 {/* Optional additional fields */}
                 {event.organizer && (
                   <p>

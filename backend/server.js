@@ -46,6 +46,7 @@ const initDB = async () => {
           ends_at TIMESTAMP NOT NULL,
           location VARCHAR(255) NOT NULL,
           category VARCHAR(100) DEFAULT 'general',
+          amount DECIMAL(10,2) DEFAULT 0,
           created_by INTEGER REFERENCES admins(id),
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );

@@ -127,6 +127,7 @@ router.post(
         ends_at,
         location,
         category = "general",
+        amount = 0,
       } = req.body;
       if (!title || !description || !starts_at || !ends_at || !location)
         return res.status(400).json({ error: "All fields are required" });
@@ -149,8 +150,8 @@ router.post(
 
       const dbResult = await pool.query(
         `INSERT INTO events
-       (title, description, starts_at, ends_at, location, category, image_url, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8)
+       (title, description, starts_at, ends_at, location, category, amount, image_url, created_by)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
        RETURNING *`,
         [
           title,
@@ -159,6 +160,7 @@ router.post(
           ends_at,
           location,
           category,
+          amount,
           imageUrl,
           req.admin.id,
         ]
@@ -183,6 +185,7 @@ router.put("/events/:id", upload.single("image"), async (req, res) => {
       ends_at,
       location,
       category = "general",
+      amount = 0,
     } = req.body;
 
     if (!title || !description || !starts_at || !ends_at || !location) {
@@ -213,10 +216,10 @@ router.put("/events/:id", upload.single("image"), async (req, res) => {
     // Update event
     const result = await pool.query(
       `UPDATE events
-       SET title=$1, description=$2, starts_at=$3, ends_at=$4, location=$5, category=$6, image_url=$7
-       WHERE id=$8
+       SET title=$1, description=$2, starts_at=$3, ends_at=$4, location=$5, category=$6, amount=$7, image_url=$8
+       WHERE id=$9
        RETURNING *`,
-      [title, description, starts_at, ends_at, location, category, imageUrl, id]
+      [title, description, starts_at, ends_at, location, category, amount, imageUrl, id]
     );
 
     res.json(result.rows[0]);
