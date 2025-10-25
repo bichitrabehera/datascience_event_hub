@@ -47,6 +47,7 @@ const initDB = async () => {
           location VARCHAR(255) NOT NULL,
           category VARCHAR(100) DEFAULT 'general',
           amount DECIMAL(10,2) DEFAULT 0,
+          forms_link TEXT,
           created_by INTEGER REFERENCES admins(id),
           created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
@@ -89,6 +90,36 @@ const initDB = async () => {
       `);
       console.log("Database tables created");
     } else {
+      // Check if events table has forms_link column, add if missing
+      const formsLinkColumnExists = await pool.query(`
+        SELECT EXISTS (
+          SELECT FROM information_schema.columns
+          WHERE table_name = 'events' AND column_name = 'forms_link'
+        );
+      `);
+
+      if (!formsLinkColumnExists.rows[0].exists) {
+        await pool.query(`
+          ALTER TABLE events ADD COLUMN forms_link TEXT;
+        `);
+        console.log("Added forms_link column to events table");
+      }
+
+      // Check if events table has amount column, add if missing
+      const amountColumnExists = await pool.query(`
+        SELECT EXISTS (
+          SELECT FROM information_schema.columns
+          WHERE table_name = 'events' AND column_name = 'amount'
+        );
+      `);
+
+      if (!amountColumnExists.rows[0].exists) {
+        await pool.query(`
+          ALTER TABLE events ADD COLUMN amount DECIMAL(10,2) DEFAULT 0;
+        `);
+        console.log("Added amount column to events table");
+      }
+
       const eventFormsExists = await pool.query(`
         SELECT EXISTS (
           SELECT FROM information_schema.tables

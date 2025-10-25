@@ -20,11 +20,17 @@ export default function EventRegister() {
   useEffect(() => {
     async function fetchData() {
       try {
-        const [eventRes, formRes] = await Promise.all([
-          fetch(API.EVENT_DETAILS(id)),
-          fetch(API.EVENT_FORM(id)),
-        ]);
-        if (eventRes.ok) setEvent(await eventRes.json());
+        const eventRes = await fetch(API.EVENT_DETAILS(id));
+        if (eventRes.ok) {
+          const eventData = await eventRes.json();
+          setEvent(eventData);
+          // If forms_link is present, redirect to external form
+          if (eventData.forms_link && eventData.forms_link.trim() !== "") {
+            window.location.href = eventData.forms_link;
+            return;
+          }
+        }
+        const formRes = await fetch(API.EVENT_FORM(id));
         if (formRes.ok) {
           const formJson = await formRes.json();
           setCustomFields(formJson.form_data || []);

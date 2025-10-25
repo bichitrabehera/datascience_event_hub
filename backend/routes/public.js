@@ -67,6 +67,15 @@ router.post("/events/:id/register", async (req, res) => {
     if (eventResult.rows.length === 0)
       return res.status(404).json({ error: "Event not found" });
 
+    const event = eventResult.rows[0];
+
+    // If forms_link is present, do not allow registration through this endpoint
+    if (event.forms_link) {
+      return res.status(400).json({
+        error: "Registration must be done through the external form link",
+      });
+    }
+
     // Check if event has a custom form
     const formResult = await pool.query(
       "SELECT form_data FROM event_forms WHERE event_id = $1",

@@ -15,6 +15,7 @@ export default function EventForm() {
     location: "",
     category: "general",
     amount: 0,
+    forms_link: "",
   });
   const [imageFile, setImageFile] = useState(null);
 
@@ -44,9 +45,11 @@ export default function EventForm() {
     if (!datePart || !timePart) return "";
     const [year, month, day] = datePart.split("-").map(Number);
     const [hour, minute] = timePart.split(":").map(Number);
-    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v))) return "";
+    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v)))
+      return "";
     // Create a UTC millis value for the wall-clock IST time, then subtract IST offset to get true UTC
-    const utcMillis = Date.UTC(year, month - 1, day, hour, minute) - IST_OFFSET_MS;
+    const utcMillis =
+      Date.UTC(year, month - 1, day, hour, minute) - IST_OFFSET_MS;
     return new Date(utcMillis).toISOString();
   };
 
@@ -63,6 +66,7 @@ export default function EventForm() {
             ...data,
             starts_at: toLocalIST(data.starts_at),
             ends_at: toLocalIST(data.ends_at),
+            forms_link: data.forms_link || "",
           });
         } catch (err) {
           console.error(err);
@@ -191,7 +195,19 @@ export default function EventForm() {
           placeholder="Amount (₹)"
           value={eventData.amount}
           onChange={(e) =>
-            setEventData({ ...eventData, amount: parseFloat(e.target.value) || 0 })
+            setEventData({
+              ...eventData,
+              amount: parseFloat(e.target.value) || 0,
+            })
+          }
+          className="w-full border rounded p-2"
+        />
+        <input
+          name="forms_link"
+          placeholder="Forms Link (optional)"
+          value={eventData.forms_link}
+          onChange={(e) =>
+            setEventData({ ...eventData, forms_link: e.target.value })
           }
           className="w-full border rounded p-2"
         />

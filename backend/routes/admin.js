@@ -91,11 +91,9 @@ router.post("/auth/login", async (req, res) => {
     if (!isValidPassword)
       return res.status(400).json({ error: "Invalid credentials" });
 
-    const token = jwt.sign(
-      { id: admin.id, role: admin.role },
-      JWT_SECRET,
-      { expiresIn: "1h" }
-    );
+    const token = jwt.sign({ id: admin.id, role: admin.role }, JWT_SECRET, {
+      expiresIn: "1h",
+    });
     res.json({
       token,
       admin: {
@@ -128,6 +126,7 @@ router.post(
         location,
         category = "general",
         amount = 0,
+        forms_link,
       } = req.body;
       if (!title || !description || !starts_at || !ends_at || !location)
         return res.status(400).json({ error: "All fields are required" });
@@ -150,8 +149,8 @@ router.post(
 
       const dbResult = await pool.query(
         `INSERT INTO events
-       (title, description, starts_at, ends_at, location, category, amount, image_url, created_by)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9)
+       (title, description, starts_at, ends_at, location, category, amount, image_url, forms_link, created_by)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
        RETURNING *`,
         [
           title,
@@ -162,6 +161,7 @@ router.post(
           category,
           amount,
           imageUrl,
+          forms_link,
           req.admin.id,
         ]
       );
@@ -186,6 +186,7 @@ router.put("/events/:id", upload.single("image"), async (req, res) => {
       location,
       category = "general",
       amount = 0,
+      forms_link,
     } = req.body;
 
     if (!title || !description || !starts_at || !ends_at || !location) {
@@ -216,10 +217,21 @@ router.put("/events/:id", upload.single("image"), async (req, res) => {
     // Update event
     const result = await pool.query(
       `UPDATE events
-       SET title=$1, description=$2, starts_at=$3, ends_at=$4, location=$5, category=$6, amount=$7, image_url=$8
-       WHERE id=$9
+       SET title=$1, description=$2, starts_at=$3, ends_at=$4, location=$5, category=$6, amount=$7, image_url=$8, forms_link=$9
+       WHERE id=$10
        RETURNING *`,
-      [title, description, starts_at, ends_at, location, category, amount, imageUrl, id]
+      [
+        title,
+        description,
+        starts_at,
+        ends_at,
+        location,
+        category,
+        amount,
+        imageUrl,
+        forms_link,
+        id,
+      ]
     );
 
     res.json(result.rows[0]);
