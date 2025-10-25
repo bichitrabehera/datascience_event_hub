@@ -186,7 +186,7 @@ export default function EventForm() {
         />
         <input
           name="amount"
-          type="number"
+          type="text"
           step="0.01"
           placeholder="Amount (₹)"
           value={eventData.amount}

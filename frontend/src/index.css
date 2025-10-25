@@ -16,6 +16,8 @@ html {
 
 .hero {
   background-image: url("./assets/images/o31lzgdhnrkyvfbwwg33.png");
+  background-color: white;
+  background-clip: border-box;
 }
 
 ::-webkit-scrollbar {
