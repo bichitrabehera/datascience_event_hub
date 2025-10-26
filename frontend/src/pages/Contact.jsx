@@ -33,7 +33,7 @@ const Contact = () => {
       <h1 className="text-5xl md:text-7xl font-[font2] mb-10 text-center">
         Get in <span className="text-blue-600">Touch</span>
       </h1>
-      <p className="text-center text-gray-700 md:text-lg mb-10 max-w-2xl mx-auto">
+      <p className="text-left md:text-center text-gray-700 md:text-lg mb-10 max-w-2xl mx-auto">
         Whether you have questions, feedback, or want to collaborate, we’re here to help.
         Fill out the form or use the contact details below and we’ll get back to you as soon as possible.
       </p>
@@ -55,7 +55,7 @@ const Contact = () => {
             Bangalore, Karnataka
           </p>
           <div className="pb-10">
-            <h1 className="text-xl font-bold">Follow Us</h1>
+            <h1 className=" font-bold">Follow Us</h1>
             <ul>
               <a href="https://www.instagram.com/amcec_cse_ds" className="underline">Instagram</a>
             </ul>
@@ -86,30 +86,35 @@ const Contact = () => {
 
           <form className="space-y-4" ref={form} onSubmit={sendEmail}>
             <div>
-              <label className="block text-gray-700 font-semibold">Name</label>
+              <label className="block text-gray-700 mb-2 font-semibold">Name
+                <span title="This field is required" className="text-red-500 ml-1 text-xl cursor-help">*</span>
+              </label>
               <input
                 type="text"
                 name="user_name"
                 className="w-full border-2 border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
+                placeholder='Name'
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-semibold">Email</label>
+              <label className="block text-gray-700 mb-2 font-semibold">Email<span title="This field is required" className="text-red-500 ml-1 text-xl cursor-help">*</span></label>
               <input
                 type="email"
                 name="user_email"
                 className="w-full border-2 border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
+                placeholder='Email'
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-semibold">Message</label>
+              <label className="block text-gray-700 mb-2 font-semibold">Message<span title="This field is required" className="text-red-500 ml-1 text-xl cursor-help">*</span></label>
               <textarea
                 name="message"
                 rows="4"
                 className="w-full border-2 border-black rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-600"
                 required
+                placeholder='Message'
               ></textarea>
             </div>
             <button

@@ -47,7 +47,7 @@ export default function Header() {
         </h1>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex space-x-10 text-xl font-bold">
+        <nav className="hidden md:flex space-x-10 text-lg font-bold">
           {navItems.map((item) => (
             <button
               key={item.name}
