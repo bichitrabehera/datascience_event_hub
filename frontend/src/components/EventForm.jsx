@@ -33,14 +33,17 @@ export default function EventForm() {
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
-  // 🕒 Convert local datetime string → UTC (assuming local represents IST)
-  const toUTC = (localString) => {
-    if (!localString) return "";
-    const localDate = new Date(localString);
-    const localTime = localDate.getTime();
-    const localOffset = localDate.getTimezoneOffset() * 60 * 1000;
-    const utcTime = localTime - localOffset;
-    return new Date(utcTime).toISOString();
+  // 🕒 Convert IST datetime string → UTC
+  const toUTC = (istString) => {
+    if (!istString) return "";
+    // Parse the IST datetime string as if it's in IST timezone
+    const istDate = new Date(istString);
+    // Get the timestamp as if it were UTC (but it's actually IST)
+    const istTimestamp = istDate.getTime();
+    // Subtract IST offset to get true UTC
+    const istOffsetMs = 5.5 * 60 * 60 * 1000;
+    const utcTimestamp = istTimestamp - istOffsetMs;
+    return new Date(utcTimestamp).toISOString();
   };
 
   useEffect(() => {
