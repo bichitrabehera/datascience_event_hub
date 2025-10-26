@@ -2,7 +2,7 @@ import React from 'react';
 
 const Hamburger = ({ isOpen }) => {
     return (
-        <button className="group flex items-center justify-center relative z-10 rounded p-[5px] cursor-pointer border border-[#999] outline-none focus-visible:outline-0 [transition:all_0.5s_ease]">
+        <button className={`group flex items-center justify-center relative z-10 rounded p-[5px] cursor-pointer border border-[#999] outline-none focus-visible:outline-0 [transition:all_0.5s_ease] ${isOpen ? "bg-red-200" : "bg-blue-200"} `}>
             <svg
                 fill="currentColor"
                 stroke="none"

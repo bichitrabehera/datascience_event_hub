@@ -151,7 +151,7 @@ export default function Events() {
         <h1 className="font-[font2] text-5xl md:text-7xl text-blue-600 text-center">
           Events
         </h1>
-        <p className="text-sm py-8 md:text-xl text-gray-700 text-center p-3 max-w-3xl mx-auto">
+        <p className="py-8 md:text-xl text-gray-700 text-left md:text-center max-w-4xl mx-auto">
           Explore our ongoing and upcoming events, workshops, and competitions.
           Join the community to learn, collaborate, and innovate with fellow developers
           and tech enthusiasts.
@@ -162,7 +162,7 @@ export default function Events() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-6 py-2 font-semibold border-2 rounded-md transition ${activeTab === tab
+              className={`px-4 py-2 font-semibold border-2 rounded-md transition ${activeTab === tab
                 ? "bg-blue-600 text-white border-black shadow-[4px_4px_0_#000]"
                 : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
                 }`}

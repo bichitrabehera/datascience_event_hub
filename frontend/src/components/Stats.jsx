@@ -11,9 +11,14 @@ const Stats = () => {
 
   return (
     <main id="stats" className="flex flex-col items-center justify-center px-6 py-20 hero">
-      <h1 className="text-5xl md:text-7xl font-[font2] text-blue-600 mb-20 text-center">
+      <h1 className="text-5xl md:text-7xl font-[font2] text-blue-600 mb-6 text-center">
         Stats
       </h1>
+
+      {/* Description */}
+      <p className="md:text-center text-left text-gray-700  md:text-xl max-w-3xl mb-16">
+        Our journey so far has been exciting and impactful. Here’s a snapshot of our achievements, highlighting our members, events, workshops, and tech initiatives that drive learning and innovation.
+      </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl w-full mb-10">
         {stats.map((stat, index) => (
