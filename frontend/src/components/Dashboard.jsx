@@ -59,22 +59,14 @@ export default function Dashboard() {
               <p>{e.description}</p>
               <p>
                 <strong>Start:</strong>{" "}
-                {new Date(e.starts_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
-                {new Date(e.starts_at).toLocaleTimeString("en-IN", {
+                {new Date(e.starts_at).toLocaleDateString("en-IN", {
                   timeZone: "Asia/Kolkata",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: true,
                 })}
               </p>
               <p>
                 <strong>End:</strong>{" "}
-                {new Date(e.ends_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
-                {new Date(e.ends_at).toLocaleTimeString("en-IN", {
+                {new Date(e.ends_at).toLocaleDateString("en-IN", {
                   timeZone: "Asia/Kolkata",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                  hour12: true,
                 })}
               </p>
 

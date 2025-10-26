@@ -19,7 +19,7 @@ export default function EventForm() {
   });
   const [imageFile, setImageFile] = useState(null);
 
-  // 🕒 Convert UTC date string → IST time formatted for datetime-local
+  // 🕒 Convert UTC date string → IST date formatted for date input
   const toLocalIST = (utcString) => {
     if (!utcString) return "";
     const date = new Date(utcString);
@@ -28,25 +28,18 @@ export default function EventForm() {
     const year = istDate.getFullYear();
     const month = String(istDate.getMonth() + 1).padStart(2, "0");
     const day = String(istDate.getDate()).padStart(2, "0");
-    const hours = String(istDate.getHours()).padStart(2, "0");
-    const minutes = String(istDate.getMinutes()).padStart(2, "0");
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
+    return `${year}-${month}-${day}`;
   };
 
-  // 🕒 Convert IST datetime string → UTC
+  // 🕒 Convert IST date string → UTC timestamp (assuming 00:00:00 IST)
   const toUTC = (istString) => {
     if (!istString) return "";
-    // Parse the IST datetime string manually as IST (UTC+5:30)
-    const [datePart, timePart] = istString.split("T");
-    if (!datePart || !timePart) return "";
-    const [year, month, day] = datePart.split("-").map(Number);
-    const [hour, minute] = timePart.split(":").map(Number);
-    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v)))
-      return "";
-    // Create UTC timestamp by treating input as IST
+    // Parse the IST date string as YYYY-MM-DD, assume 00:00:00 IST
+    const [year, month, day] = istString.split("-").map(Number);
+    if ([year, month, day].some((v) => Number.isNaN(v))) return "";
+    // Create UTC timestamp by treating input as IST at midnight
     const istOffsetMs = 5.5 * 60 * 60 * 1000;
-    const utcMillis =
-      Date.UTC(year, month - 1, day, hour, minute) - istOffsetMs;
+    const utcMillis = Date.UTC(year, month - 1, day, 0, 0, 0) - istOffsetMs;
     return new Date(utcMillis).toISOString();
   };
 
@@ -141,10 +134,10 @@ export default function EventForm() {
           className="w-full border rounded p-2"
         />
 
-        {/* 🕐 Start & End Date/Time Inputs (IST local) */}
-        <label className="block text-sm font-medium">Start Time (IST)</label>
+        {/* 🕐 Start & End Date Inputs (IST local) */}
+        <label className="block text-sm font-medium">Start Date (IST)</label>
         <input
-          type="datetime-local"
+          type="date"
           name="starts_at"
           value={eventData.starts_at}
           onChange={(e) =>
@@ -154,9 +147,9 @@ export default function EventForm() {
           className="w-full border rounded p-2"
         />
 
-        <label className="block text-sm font-medium">End Time (IST)</label>
+        <label className="block text-sm font-medium">End Date (IST)</label>
         <input
-          type="datetime-local"
+          type="date"
           name="ends_at"
           value={eventData.ends_at}
           onChange={(e) =>
