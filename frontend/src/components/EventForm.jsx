@@ -19,38 +19,28 @@ export default function EventForm() {
   });
   const [imageFile, setImageFile] = useState(null);
 
-  // 🕒 Convert UTC date string → Asia/Kolkata local string for datetime-local input
+  // 🕒 Convert UTC date string → IST time formatted for datetime-local
   const toLocalIST = (utcString) => {
     if (!utcString) return "";
     const date = new Date(utcString);
-    if (isNaN(date)) return "";
-    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
-    const localDate = new Date(date.getTime() + IST_OFFSET_MS);
-    // Format as yyyy-MM-ddTHH:mm suitable for <input type="datetime-local">
-    const pad = (n) => String(n).padStart(2, "0");
-    const year = localDate.getUTCFullYear();
-    const month = pad(localDate.getUTCMonth() + 1);
-    const day = pad(localDate.getUTCDate());
-    const hours = pad(localDate.getUTCHours());
-    const minutes = pad(localDate.getUTCMinutes());
+    const istTime = date.getTime() + 5.5 * 60 * 60 * 1000;
+    const istDate = new Date(istTime);
+    const year = istDate.getFullYear();
+    const month = String(istDate.getMonth() + 1).padStart(2, "0");
+    const day = String(istDate.getDate()).padStart(2, "0");
+    const hours = String(istDate.getHours()).padStart(2, "0");
+    const minutes = String(istDate.getMinutes()).padStart(2, "0");
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
-  // 🕒 Convert Asia/Kolkata local datetime-local value → UTC for backend
+  // 🕒 Convert local datetime string → UTC (assuming local represents IST)
   const toUTC = (localString) => {
     if (!localString) return "";
-    // Expecting format: YYYY-MM-DDTHH:mm
-    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
-    const [datePart, timePart] = localString.split("T");
-    if (!datePart || !timePart) return "";
-    const [year, month, day] = datePart.split("-").map(Number);
-    const [hour, minute] = timePart.split(":").map(Number);
-    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v)))
-      return "";
-    // Create a UTC millis value for the wall-clock IST time, then subtract IST offset to get true UTC
-    const utcMillis =
-      Date.UTC(year, month - 1, day, hour, minute) - IST_OFFSET_MS;
-    return new Date(utcMillis).toISOString();
+    const localDate = new Date(localString);
+    const localTime = localDate.getTime();
+    const localOffset = localDate.getTimezoneOffset() * 60 * 1000;
+    const utcTime = localTime - localOffset;
+    return new Date(utcTime).toISOString();
   };
 
   useEffect(() => {

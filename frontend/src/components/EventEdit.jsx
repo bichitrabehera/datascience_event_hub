@@ -9,34 +9,39 @@ export default function EventEdit() {
 
   const [event, setEvent] = useState(null);
   const [imageFile, setImageFile] = useState(null);
+  const [eventData, setEventData] = useState({
+    title: "",
+    description: "",
+    starts_at: "",
+    ends_at: "",
+    location: "",
+    category: "general",
+    amount: 0,
+    forms_link: "",
+  });
 
-  // 🕒 Convert UTC date string → Asia/Kolkata local string for datetime-local
+  // 🕒 Convert UTC date string → IST time formatted for datetime-local
   const toLocalIST = (utcString) => {
     if (!utcString) return "";
     const date = new Date(utcString);
-    if (isNaN(date)) return "";
-    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
-    const localDate = new Date(date.getTime() + IST_OFFSET_MS);
-    const pad = (n) => String(n).padStart(2, "0");
-    const year = localDate.getUTCFullYear();
-    const month = pad(localDate.getUTCMonth() + 1);
-    const day = pad(localDate.getUTCDate());
-    const hours = pad(localDate.getUTCHours());
-    const minutes = pad(localDate.getUTCMinutes());
+    const istTime = date.getTime() + 5.5 * 60 * 60 * 1000;
+    const istDate = new Date(istTime);
+    const year = istDate.getFullYear();
+    const month = String(istDate.getMonth() + 1).padStart(2, "0");
+    const day = String(istDate.getDate()).padStart(2, "0");
+    const hours = String(istDate.getHours()).padStart(2, "0");
+    const minutes = String(istDate.getMinutes()).padStart(2, "0");
     return `${year}-${month}-${day}T${hours}:${minutes}`;
   };
 
-  // 🕒 Convert Asia/Kolkata local datetime → UTC for backend
+  // 🕒 Convert local datetime string → UTC (assuming local represents IST)
   const toUTC = (localString) => {
     if (!localString) return "";
-    const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // IST is UTC+5:30
-    const [datePart, timePart] = localString.split("T");
-    if (!datePart || !timePart) return "";
-    const [year, month, day] = datePart.split("-").map(Number);
-    const [hour, minute] = timePart.split(":").map(Number);
-    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v))) return "";
-    const utcMillis = Date.UTC(year, month - 1, day, hour, minute) - IST_OFFSET_MS;
-    return new Date(utcMillis).toISOString();
+    const localDate = new Date(localString);
+    const localTime = localDate.getTime();
+    const localOffset = localDate.getTimezoneOffset() * 60 * 1000;
+    const utcTime = localTime - localOffset;
+    return new Date(utcTime).toISOString();
   };
 
   useEffect(() => {
@@ -54,6 +59,12 @@ export default function EventEdit() {
           starts_at: toLocalIST(data.starts_at),
           ends_at: toLocalIST(data.ends_at),
         });
+        setEventData({
+          ...data,
+          starts_at: toLocalIST(data.starts_at),
+          ends_at: toLocalIST(data.ends_at),
+          forms_link: data.forms_link || "",
+        });
       } catch (err) {
         console.error(err);
       }
@@ -64,12 +75,19 @@ export default function EventEdit() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const formData = new FormData(e.target);
-    if (imageFile) formData.append("image", imageFile);
+    const formData = new FormData();
 
-    // Replace local IST input values with UTC before sending
-    formData.set("starts_at", toUTC(formData.get("starts_at")));
-    formData.set("ends_at", toUTC(formData.get("ends_at")));
+    // Convert IST → UTC before sending
+    const eventToSubmit = {
+      ...eventData,
+      starts_at: toUTC(eventData.starts_at),
+      ends_at: toUTC(eventData.ends_at),
+    };
+
+    Object.entries(eventToSubmit).forEach(([key, val]) =>
+      formData.append(key, val)
+    );
+    if (imageFile) formData.append("image", imageFile);
 
     try {
       const res = await fetch(API.ADMIN_EVENT(id), {
@@ -102,7 +120,10 @@ export default function EventEdit() {
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             name="title"
-            defaultValue={event.title}
+            value={eventData.title}
+            onChange={(e) =>
+              setEventData({ ...eventData, title: e.target.value })
+            }
             placeholder="Event Title"
             required
             className="w-full border rounded p-2"
@@ -110,7 +131,10 @@ export default function EventEdit() {
 
           <textarea
             name="description"
-            defaultValue={event.description}
+            value={eventData.description}
+            onChange={(e) =>
+              setEventData({ ...eventData, description: e.target.value })
+            }
             placeholder="Description"
             required
             className="w-full border rounded p-2"
@@ -121,7 +145,10 @@ export default function EventEdit() {
           <input
             type="datetime-local"
             name="starts_at"
-            defaultValue={event.starts_at}
+            value={eventData.starts_at}
+            onChange={(e) =>
+              setEventData({ ...eventData, starts_at: e.target.value })
+            }
             required
             className="w-full border rounded p-2"
           />
@@ -130,14 +157,20 @@ export default function EventEdit() {
           <input
             type="datetime-local"
             name="ends_at"
-            defaultValue={event.ends_at}
+            value={eventData.ends_at}
+            onChange={(e) =>
+              setEventData({ ...eventData, ends_at: e.target.value })
+            }
             required
             className="w-full border rounded p-2"
           />
 
           <input
             name="location"
-            defaultValue={event.location}
+            value={eventData.location}
+            onChange={(e) =>
+              setEventData({ ...eventData, location: e.target.value })
+            }
             placeholder="Location"
             required
             className="w-full border rounded p-2"
@@ -145,8 +178,36 @@ export default function EventEdit() {
 
           <input
             name="category"
-            defaultValue={event.category || "general"}
+            value={eventData.category}
+            onChange={(e) =>
+              setEventData({ ...eventData, category: e.target.value })
+            }
             placeholder="Category"
+            className="w-full border rounded p-2"
+          />
+
+          <input
+            name="amount"
+            type="number"
+            step="0.01"
+            placeholder="Amount (₹)"
+            value={eventData.amount}
+            onChange={(e) =>
+              setEventData({
+                ...eventData,
+                amount: parseFloat(e.target.value) || 0,
+              })
+            }
+            className="w-full border rounded p-2"
+          />
+
+          <input
+            name="forms_link"
+            placeholder="Forms Link (optional)"
+            value={eventData.forms_link}
+            onChange={(e) =>
+              setEventData({ ...eventData, forms_link: e.target.value })
+            }
             className="w-full border rounded p-2"
           />
 
@@ -187,7 +248,7 @@ export default function EventEdit() {
         <div className="mt-6 text-center text-sm text-gray-600">
           <p>
             <strong>Start:</strong>{" "}
-            {new Date(toUTC(event.starts_at)).toLocaleString("en-IN", {
+            {new Date(toUTC(eventData.starts_at)).toLocaleString("en-IN", {
               timeZone: "Asia/Kolkata",
               hour: "2-digit",
               minute: "2-digit",
@@ -197,7 +258,7 @@ export default function EventEdit() {
           </p>
           <p>
             <strong>End:</strong>{" "}
-            {new Date(toUTC(event.ends_at)).toLocaleString("en-IN", {
+            {new Date(toUTC(eventData.ends_at)).toLocaleString("en-IN", {
               timeZone: "Asia/Kolkata",
               hour: "2-digit",
               minute: "2-digit",
