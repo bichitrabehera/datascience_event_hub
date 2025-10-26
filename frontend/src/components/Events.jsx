@@ -68,28 +68,16 @@ export default function Events() {
               <div className="text-sm text-gray-700 space-y-1 mb-4">
                 <p>
                   <span className="font-medium">Starts:</span>{" "}
-                  {new Date(event.starts_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
-                  <span className="text-gray-500">
-                    ({new Date(event.starts_at).toLocaleTimeString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                      timeZone: "Asia/Kolkata",
-                    })})
-                  </span>
+                  {new Date(event.starts_at).toLocaleDateString("en-IN", {
+                    timeZone: "Asia/Kolkata",
+                  })}
                 </p>
 
                 <p>
                   <span className="font-medium">Ends:</span>{" "}
-                  {new Date(event.ends_at).toLocaleDateString("en-IN", { timeZone: "Asia/Kolkata" })}{" "}
-                  <span className="text-gray-500">
-                    ({new Date(event.ends_at).toLocaleTimeString("en-IN", {
-                      hour: "2-digit",
-                      minute: "2-digit",
-                      hour12: true,
-                      timeZone: "Asia/Kolkata",
-                    })})
-                  </span>
+                  {new Date(event.ends_at).toLocaleDateString("en-IN", {
+                    timeZone: "Asia/Kolkata",
+                  })}
                 </p>
 
                 <p>
@@ -99,8 +87,7 @@ export default function Events() {
 
                 {event.amount > 0 && (
                   <p>
-                    <span className="font-medium">Amount:</span>{" "}
-                    ₹{event.amount}
+                    <span className="font-medium">Amount:</span> ₹{event.amount}
                   </p>
                 )}
 
@@ -123,8 +110,7 @@ export default function Events() {
                   {Math.max(
                     0,
                     Math.ceil(
-                      (new Date(event.starts_at) - now) /
-                      (1000 * 60 * 60 * 24)
+                      (new Date(event.starts_at) - now) / (1000 * 60 * 60 * 24)
                     )
                   )}{" "}
                   days
@@ -141,7 +127,6 @@ export default function Events() {
           </div>
         ))}
       </div>
-
     );
   }
 
@@ -153,8 +138,8 @@ export default function Events() {
         </h1>
         <p className="py-8 md:text-xl text-gray-700 text-left md:text-center max-w-4xl mx-auto">
           Explore our ongoing and upcoming events, workshops, and competitions.
-          Join the community to learn, collaborate, and innovate with fellow developers
-          and tech enthusiasts.
+          Join the community to learn, collaborate, and innovate with fellow
+          developers and tech enthusiasts.
         </p>
         {/* Tabs */}
         <div className="flex justify-center gap-4 mb-12">
@@ -162,10 +147,11 @@ export default function Events() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`px-4 py-2 font-semibold border-2 rounded-md transition ${activeTab === tab
-                ? "bg-blue-600 text-white border-black shadow-[4px_4px_0_#000]"
-                : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
-                }`}
+              className={`px-4 py-2 font-semibold border-2 rounded-md transition ${
+                activeTab === tab
+                  ? "bg-blue-600 text-white border-black shadow-[4px_4px_0_#000]"
+                  : "bg-white text-gray-800 border-gray-300 hover:bg-gray-100"
+              }`}
             >
               {tab.charAt(0).toUpperCase() + tab.slice(1)}
             </button>
