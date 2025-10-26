@@ -1,15 +1,4 @@
 const API_BASE = "https://dataverse-26la.onrender.com/api";
-// const API_BASE = "http://localhost:3000/api";
-
->>>>>>> 8bfc7ce2baf49dd27f879c8827c0836b5b6be422
-=======
-const API_BASE = "https://dataverse-26la.onrender.com/api";
-// const API_BASE = "http://localhost:3000/api";
-=======
-const API_BASE = "https://dataverse-26la.onrender.com/api";
-// const API_BASE = "http://localhost:3000/api";
-
->>>>>>> 8bfc7ce2baf49dd27f879c8827c0836b5b6be422
 
 export const API = {
   EVENTS: `${API_BASE}/events`,
