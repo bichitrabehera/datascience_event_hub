@@ -34,7 +34,7 @@ const HeroSection = () => {
       </div>
 
       <div className="absolute bottom-24 left-4 md:left-24 flex flex-col items-center space-y-0 font-[Font2]">
-        <span className="block -rotate-90 text-gray-600 text-xs md:text-sm font-medium opacity-70 select-none">4</span>
+        <span className="block -rotate-90 text-gray-600 text-xs md:text-sm font-medium opacity-70 select-none">1</span>
         <span className="block -rotate-90 text-gray-600 text-xs md:text-sm font-medium opacity-70 select-none">2</span>
         <span className="block -rotate-90 text-gray-600 text-xs md:text-sm font-medium opacity-70 select-none">0</span>
         <span className="block -rotate-90 text-gray-600 text-xs md:text-sm font-medium opacity-70 select-none">2</span>
