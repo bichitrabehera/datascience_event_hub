@@ -37,14 +37,18 @@ export default function EventEdit() {
   // 🕒 Convert IST datetime string → UTC
   const toUTC = (istString) => {
     if (!istString) return "";
-    // Parse the IST datetime string as if it's in IST timezone
-    const istDate = new Date(istString);
-    // Get the timestamp as if it were UTC (but it's actually IST)
-    const istTimestamp = istDate.getTime();
-    // Subtract IST offset to get true UTC
+    // Parse the IST datetime string manually as IST (UTC+5:30)
+    const [datePart, timePart] = istString.split("T");
+    if (!datePart || !timePart) return "";
+    const [year, month, day] = datePart.split("-").map(Number);
+    const [hour, minute] = timePart.split(":").map(Number);
+    if ([year, month, day, hour, minute].some((v) => Number.isNaN(v)))
+      return "";
+    // Create UTC timestamp by treating input as IST
     const istOffsetMs = 5.5 * 60 * 60 * 1000;
-    const utcTimestamp = istTimestamp - istOffsetMs;
-    return new Date(utcTimestamp).toISOString();
+    const utcMillis =
+      Date.UTC(year, month - 1, day, hour, minute) - istOffsetMs;
+    return new Date(utcMillis).toISOString();
   };
 
   useEffect(() => {
