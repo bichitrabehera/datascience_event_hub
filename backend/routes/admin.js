@@ -127,8 +127,11 @@ router.post(
         category = "general",
         amount = 0,
         forms_link,
-        registration_enabled = true,
+        registration_enabled,
       } = req.body;
+      // Parse registration_enabled: true if boolean true or string "true"
+      const parsed_registration_enabled =
+        registration_enabled === true || registration_enabled === "true";
       if (!title || !description || !starts_at || !ends_at || !location)
         return res.status(400).json({ error: "All fields are required" });
 
@@ -163,7 +166,7 @@ router.post(
           amount,
           imageUrl,
           forms_link,
-          registration_enabled,
+          parsed_registration_enabled,
           req.admin.id,
         ]
       );
@@ -177,73 +180,83 @@ router.post(
 );
 
 // Update event (supports image)
-router.put("/events/:id", upload.single("image"), async (req, res) => {
-  try {
-    const { id } = req.params;
-    const {
-      title,
-      description,
-      starts_at,
-      ends_at,
-      location,
-      category = "general",
-      amount = 0,
-      forms_link,
-      registration_enabled = true,
-    } = req.body;
-
-    if (!title || !description || !starts_at || !ends_at || !location) {
-      return res.status(400).json({ error: "All fields are required" });
-    }
-
-    // Get existing event
-    const existing = await pool.query("SELECT * FROM events WHERE id=$1", [id]);
-    if (existing.rows.length === 0)
-      return res.status(404).json({ error: "Event not found" });
-
-    let imageUrl = existing.rows[0].image_url;
-
-    // Upload new image if provided
-    if (req.file) {
-      imageUrl = await new Promise((resolve, reject) => {
-        const uploadStream = cloudinary.uploader.upload_stream(
-          { folder: "events" },
-          (err, result) => {
-            if (err) reject(err);
-            else resolve(result.secure_url);
-          }
-        );
-        streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
-      });
-    }
-
-    // Update event
-    const result = await pool.query(
-      `UPDATE events
-       SET title=$1, description=$2, starts_at=$3, ends_at=$4, location=$5, category=$6, amount=$7, image_url=$8, forms_link=$9, registration_enabled=$10
-       WHERE id=$11
-       RETURNING *`,
-      [
+router.put(
+  "/events/:id",
+  verifyToken,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const { id } = req.params;
+      const {
         title,
         description,
         starts_at,
         ends_at,
         location,
-        category,
-        amount,
-        imageUrl,
+        category = "general",
+        amount = 0,
         forms_link,
         registration_enabled,
-        id,
-      ]
-    );
+      } = req.body;
+      // Parse registration_enabled: true if boolean true or string "true"
+      const parsed_registration_enabled =
+        registration_enabled === true || registration_enabled === "true";
 
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error("Error updating event:", err);
-    res.status(500).json({ error: "Server error" });
+      if (!title || !description || !starts_at || !ends_at || !location) {
+        return res.status(400).json({ error: "All fields are required" });
+      }
+
+      // Get existing event
+      const existing = await pool.query("SELECT * FROM events WHERE id=$1", [
+        id,
+      ]);
+      if (existing.rows.length === 0)
+        return res.status(404).json({ error: "Event not found" });
+
+      let imageUrl = existing.rows[0].image_url;
+
+      // Upload new image if provided
+      if (req.file) {
+        imageUrl = await new Promise((resolve, reject) => {
+          const uploadStream = cloudinary.uploader.upload_stream(
+            { folder: "events" },
+            (err, result) => {
+              if (err) reject(err);
+              else resolve(result.secure_url);
+            }
+          );
+          streamifier.createReadStream(req.file.buffer).pipe(uploadStream);
+        });
+      }
+
+      // Update event
+      const result = await pool.query(
+        `UPDATE events
+       SET title=$1, description=$2, starts_at=$3, ends_at=$4, location=$5, category=$6, amount=$7, image_url=$8, forms_link=$9, registration_enabled=$10
+       WHERE id=$11
+       RETURNING *`,
+        [
+          title,
+          description,
+          starts_at,
+          ends_at,
+          location,
+          category,
+          amount,
+          imageUrl,
+          forms_link,
+          parsed_registration_enabled,
+          id,
+        ]
+      );
+
+      res.json(result.rows[0]);
+    } catch (err) {
+      console.error("Error updating event:", err);
+      res.status(500).json({ error: "Server error" });
+    }
   }
-});
+);
 
 // Delete event
 router.delete("/events/:id", verifyToken, async (req, res) => {

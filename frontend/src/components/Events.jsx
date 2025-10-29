@@ -123,14 +123,14 @@ export default function Events() {
                 </div>
               </div>
 
-              {event.registration_enabled && (
-                <Link
-                  to={`/events/${event.id}`}
-                  className="inline-block px-4 rounded py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
-                >
-                  Start Registration
-                </Link>
-              )}
+              <Link
+                to={`/events/${event.id}`}
+                className="inline-block px-4 rounded py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
+              >
+                {event.registration_enabled
+                  ? "Start Registration"
+                  : "View Details"}
+              </Link>
             </div>
           </div>
         ))}

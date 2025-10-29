@@ -76,6 +76,13 @@ router.post("/events/:id/register", async (req, res) => {
       });
     }
 
+    // Check if registration is enabled
+    if (!event.registration_enabled) {
+      return res
+        .status(400)
+        .json({ error: "Registration is disabled for this event" });
+    }
+
     // Check if event has a custom form
     const formResult = await pool.query(
       "SELECT form_data FROM event_forms WHERE event_id = $1",

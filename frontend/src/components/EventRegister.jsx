@@ -24,6 +24,11 @@ export default function EventRegister() {
         if (eventRes.ok) {
           const eventData = await eventRes.json();
           setEvent(eventData);
+          // If registration is disabled, redirect to event details
+          if (!eventData.registration_enabled) {
+            navigate(`/events/${id}`);
+            return;
+          }
           // If forms_link is present, redirect to external form
           if (eventData.forms_link && eventData.forms_link.trim() !== "") {
             window.location.href = eventData.forms_link;
@@ -40,7 +45,7 @@ export default function EventRegister() {
       }
     }
     fetchData();
-  }, [id]);
+  }, [id, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();
