@@ -109,7 +109,7 @@ export default function EventDetails() {
           </div>
 
           {/* CTA */}
-          {isUpcoming && (
+          {isUpcoming && event.registration_enabled && (
             <div className="pt-4 text-center">
               <Link
                 to={`/events/${id}/register`}
