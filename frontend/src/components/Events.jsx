@@ -30,10 +30,16 @@ export default function Events() {
     );
 
   const now = new Date();
-  const upcoming = events.filter((e) => new Date(e.starts_at) > now);
-  const ongoing = events.filter(
-    (e) => new Date(e.starts_at) <= now && new Date(e.ends_at) >= now
-  );
+  const today = new Date(now);
+  today.setHours(0, 0, 0, 0);
+  const tomorrow = new Date(today);
+  tomorrow.setDate(today.getDate() + 1);
+
+  const upcoming = events.filter((e) => new Date(e.starts_at) > tomorrow);
+  const ongoing = events.filter((e) => {
+    const start = new Date(e.starts_at);
+    return start >= today && start <= tomorrow;
+  });
   const past = events.filter((e) => new Date(e.ends_at) < now);
 
   function EventGrid({ data }) {
@@ -117,12 +123,14 @@ export default function Events() {
                 </div>
               </div>
 
-              <Link
-                to={`/events/${event.id}`}
-                className="inline-block px-4 rounded py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
-              >
-                Start Registration
-              </Link>
+              {event.registration_enabled && (
+                <Link
+                  to={`/events/${event.id}`}
+                  className="inline-block px-4 rounded py-2 bg-blue-600 text-white font-semibold border-2 border-black shadow-[4px_4px_0_#000] hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_#000] transition"
+                >
+                  Start Registration
+                </Link>
+              )}
             </div>
           </div>
         ))}

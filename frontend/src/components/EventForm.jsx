@@ -16,6 +16,7 @@ export default function EventForm() {
     category: "general",
     amount: 0,
     forms_link: "",
+    registration_enabled: true,
   });
   const [imageFile, setImageFile] = useState(null);
 
@@ -57,6 +58,7 @@ export default function EventForm() {
             starts_at: toLocalIST(data.starts_at),
             ends_at: toLocalIST(data.ends_at),
             forms_link: data.forms_link || "",
+            registration_enabled: data.registration_enabled !== false,
           });
         } catch (err) {
           console.error(err);
@@ -201,6 +203,19 @@ export default function EventForm() {
           }
           className="w-full border rounded p-2"
         />
+        <label className="flex items-center space-x-2">
+          <input
+            type="checkbox"
+            checked={eventData.registration_enabled}
+            onChange={(e) =>
+              setEventData({
+                ...eventData,
+                registration_enabled: e.target.checked,
+              })
+            }
+          />
+          <span>Enable Registration</span>
+        </label>
         <input
           type="file"
           accept="image/*"
