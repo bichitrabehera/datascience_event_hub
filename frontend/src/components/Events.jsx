@@ -5,7 +5,7 @@ import { API } from "../constants/api";
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [error, setError] = useState("");
-  const [activeTab, setActiveTab] = useState("upcoming"); // Track which tab is active
+  const [activeTab, setActiveTab] = useState("ongoing"); // Track which tab is active
 
   useEffect(() => {
     async function fetchEvents() {
